@@ -15,6 +15,11 @@ body {
     margin: 0;
     padding: 0;
     background: #F2F5F9;
+    overflow: unset;
+
+    &.hidden {
+        overflow: hidden;
+    }
 }
 
 h1,
@@ -73,5 +78,13 @@ input {
     width: 100%;
     height: 1px;
     background: rgba(201, 201, 201, 1); 
+}
+@media screen and (max-width:750px) {
+    .line {
+        margin: 15px 0;
+    }
+    .title {
+        font-size: 20px;
+    }
 }
 </style>

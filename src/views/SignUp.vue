@@ -3,7 +3,7 @@
         <div class="container">
             <h2 class="signup-title">Регистрация</h2>
             <form class="signup-content">
-                <Checkbox />
+                <Checkbox v-for="item in store.state.listRu.slice(2)" :key="item.id" :item="item" />
                 <span class="signup-text">Образование</span>
                 <Dropdown />
                 <span class="signup-text">Специальность</span>
@@ -45,12 +45,15 @@
 import { ref } from "vue";
 import UnShow from "../assets/icons/sign/UnShow.vue";
 import Show from "../assets/icons/sign/Show.vue";
-import Btn from "../components/Btn.vue";
+import Btn from "../components/btns/Btn.vue";
 import Dropdown from "../components/Dropdown.vue";
-import Checkbox from "../components/Checkbox.vue";
+import Checkbox from "../components/checks/Checkbox.vue";
+import { useStore } from "vuex";
 const password = ref("")
 const passwordSec = ref("")
 const email = ref("")
+
+const store = useStore()
 
 const isShow = ref(false)
 const isShowSec = ref(false)
@@ -67,7 +70,7 @@ const isShowSec = ref(false)
     }
 
     &-content {
-        width: 410px;
+        max-width: 410px;
         margin: 0 auto;
         margin-top: 50px;
     }

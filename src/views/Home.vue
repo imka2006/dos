@@ -1,9 +1,10 @@
 <template>
     <section class="home">
+        <Modal />
         <div class="container">
             <div class="df-aic-jcsb">
                 <h2 class="title">Персона</h2>
-                <Btn text="Отправить сообщение" />
+                <BtnMess class="home-btn" text="Отправить сообщение" @click="store.state.modal = !store.state.modal" />
             </div>
             <div class="home-content">
                 <div class="home-block">
@@ -15,53 +16,53 @@
                         <span class="home-age">45 лет, мужчина</span>
                         <div class="home-more">
                             <span class="home-pointer">Ученая степень</span>
-                            <div class="home-host">Доктор наук</div>
+                            <div class="home-host advant">Доктор наук</div>
                         </div>
                         <div class="line"></div>
                         <div class="home-more">
                             <span class="home-pointer">Специализация</span>
-                            <div class="home-host">Математика, Биохимия</div>
+                            <div class="home-host advant">Математика, Биохимия</div>
                         </div>
                         <div class="line"></div>
                         <div class="home-more">
                             <span class="home-pointer">Город</span>
-                            <div class="home-host">Астана</div>
+                            <div class="home-host advant">Астана</div>
                         </div>
                         <div class="line"></div>
                         <div class="home-more">
                             <span class="home-pointer">Страна</span>
-                            <div class="home-host">Казахстан</div>
+                            <div class="home-host advant">Казахстан</div>
                         </div>
                     </div>
                 </div>
                 <div class="home-block another">
                     <h4 class="home-name blue">Научные интересы</h4>
-                    <div class="home-host">Дифференциальное исчисление</div>
+                    <div class="home-host adaptive">Дифференциальное исчисление</div>
                     <div class="line"></div>
-                    <div class="home-host">Функциональный анализ</div>
+                    <div class="home-host adaptive">Функциональный анализ</div>
                 </div>
             </div>
             <div class="home-content">
-                <div class="home-block colum">
+                <div class="home-block column">
                     <h4 class="home-name blue">Дополнительные данные</h4>
                     <div class="home-more">
                         <span class="home-pointer">Номер телефона</span>
-                        <div class="home-host">+7 (999) 899-09-86</div>
+                        <div class="home-host another">+7 (999) 899-09-86</div>
                     </div>
                     <div class="line"></div>
                     <div class="home-more">
                         <span class="home-pointer">Email</span>
-                        <div class="home-host">zemlyansky900@gmail.com</div>
+                        <div class="home-host another">zemlyansky900@gmail.com</div>
                     </div>
                     <div class="line"></div>
                     <div class="home-more">
                         <span class="home-pointer">Сайт</span>
-                        <div class="home-host">www.zemlyansky900.org</div>
+                        <div class="home-host another">www.zemlyansky900.org</div>
                     </div>
                     <div class="line"></div>
                     <div class="home-more">
                         <span class="home-pointer">Социальные сети</span>
-                        <div class="home-host cocial">
+                        <div class="home-host another cocial">
                             <a href="#" target="_blank">
                                 <In />
                             </a>
@@ -84,7 +85,7 @@
             </div>
             <h4 class="home-name blue">Участие в проектах</h4>
             <div class="line"></div>
-            <div class="df-aic-jcsb">
+            <div class="df-aic-jcsb home-bottom-wrapper">
                 <div v-for="item in num" :key="item" class="home-block mini">
                     <h4 class="home-name">Дифференциальные уравнения</h4>
                     <span class="home-author">Авторы</span>
@@ -98,16 +99,19 @@
     </section>
 </template>
 
-<script setup>
-import Btn from "../components/Btn.vue";
+<script setup> 
 import ava from "../assets/img/home/ava.png";
 import In from "../assets/icons/home/In.vue";
 import Twiter from "../assets/icons/home/Twiter.vue";
 import Facebook from "../assets/icons/home/Facebook.vue";
 import Youtube from "../assets/icons/home/Youtube.vue";
 import { ref } from "vue";
+import Modal from "../components/Modal.vue";
+import { useStore } from "vuex";
+import BtnMess from "../components/btns/BtnMess.vue";
 
 const num = ref(3)
+const store = useStore()
 </script>
 
 <style lang="scss">
@@ -115,7 +119,6 @@ const num = ref(3)
 
     &-content {
         display: flex;
-        align-items: center;
         gap: 30px;
         margin-bottom: 30px;
     }
@@ -127,27 +130,25 @@ const num = ref(3)
         align-items: start;
         gap: 30px;
         box-sizing: border-box;
+        width: 60%;
 
         &.another {
             display: block;
-            max-width: 475px;
-            width: 100%;
-            min-height: 332px;
+            width: 40%;
         }
 
-        &.colum {
+        &.column {
             display: unset;
-            width: 760px;
         }
 
         &.mini {
             display: unset;
-            width: 385px;
+            width: 30%;
         }
     }
 
     &-ava_wrapper {
-        width: 241px;
+        width: 35%;
 
         img {
             width: 100%;
@@ -179,6 +180,7 @@ const num = ref(3)
         font-weight: 500;
         line-height: 21px;
         color: rgba(103, 103, 103, 1);
+        width: 50%;
     }
 
     &-host {
@@ -187,11 +189,16 @@ const num = ref(3)
         font-weight: 500;
         line-height: 21px;
         letter-spacing: 0em;
+        width: 50%;
 
         &.cocial {
             display: flex;
             align-items: center;
             gap: 20px;
+        }
+
+        &.another {
+            text-align: right;
         }
     }
 
@@ -199,6 +206,10 @@ const num = ref(3)
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+
+    &-info {
+        width: 65%;
     }
 
     &-author {
@@ -219,6 +230,74 @@ const num = ref(3)
         color: #181616;
         font-size: 18px;
         font-weight: 500;
+    }
+
+    @media screen and (max-width:1045px) {
+        &-info {
+            width: 100%;
+        }
+
+        &-block {
+            flex-direction: column;
+        }
+
+        &-pointer {
+            width: 35%;
+        }
+
+        &-host {
+            text-align: right;
+            width: 65%;
+
+            &.adaptive {
+                width: auto;
+                text-align: left;
+            }
+        }
+    }
+
+    @media screen and (max-width:750px) {
+        &-content {
+            flex-direction: column;
+        }
+
+        &-block {
+            width: 100% !important;
+        }
+
+        &-host {
+            width: auto;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        &-bottom-wrapper {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        &-pointer {
+            width: auto;
+            font-size: 16px;
+        } 
+    } 
+
+    @media screen and (max-width:450px) {
+        &-ava_wrapper {
+            width: 100%;
+        }
+        &-host.another.cocial {
+            gap: 10px;
+        }
+
+        &-host.advant {
+            text-align: right;
+        }
+
+        &-more {
+            gap: 10px;
+        }
+         
     }
 
 }

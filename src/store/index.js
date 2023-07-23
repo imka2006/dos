@@ -16,7 +16,7 @@ export default createStore({
             {
                 id: 2,
                 name: "Materials",
-                link: "/",
+                link: "/materials",
             },
             {
                 id: 3,
@@ -43,7 +43,7 @@ export default createStore({
             {
                 id: 2,
                 name: "Материалы",
-                link: "/",
+                link: "/materials",
             },
             {
                 id: 3,
@@ -57,6 +57,7 @@ export default createStore({
             },
         ],
         burger:false,
+        modal:false,
     },
     getters: {},
     mutations: {},

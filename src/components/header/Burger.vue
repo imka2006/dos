@@ -21,7 +21,7 @@
 
 <script setup>
 import { useStore } from "vuex";
-import Close from "../../assets/icons/header/Close.vue";
+import Close from "../../assets/icons/global/Close.vue";
 
 const store = useStore()
 

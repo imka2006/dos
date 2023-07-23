@@ -30,7 +30,7 @@
 import { ref } from "vue";
 import UnShow from "../assets/icons/sign/UnShow.vue";
 import Show from "../assets/icons/sign/Show.vue";
-import Btn from "../components/Btn.vue";
+import Btn from "../components/btns/Btn.vue";
 const password = ref("")
 const email = ref("")
 
@@ -39,7 +39,7 @@ const isShow = ref(false)
 
 <style lang="scss">
 .signin {
-    margin-top: 80px;
+    margin: 80px 0;
 
     &-title {
         display: flex;
@@ -47,7 +47,7 @@ const isShow = ref(false)
     }
 
     &-content {
-        width: 410px;
+        max-width: 410px;
         margin: 0 auto;
         margin-top: 50px;
     }
