@@ -4,9 +4,9 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-            path: "/",
-            name: "home",
-            component: () => import("../views/Home.vue"),
+            path: "/cabinet",
+            name: "cabinet",
+            component: () => import("../views/Cabinet.vue"),
         }, 
         {
             path: "/signup",
@@ -14,7 +14,7 @@ const router = createRouter({
             component: () => import("../views/SignUp.vue"),
         }, 
         {
-            path: "/signin",
+            path: "/",
             name: "signin",
             component: () => import("../views/SignIn.vue"),
         }, 
@@ -22,6 +22,26 @@ const router = createRouter({
             path: "/materials",
             name: "materials",
             component: () => import("../views/Materials.vue"),
+        }, 
+        {
+            path: "/projects",
+            name: "projects",
+            component: () => import("../views/Projects.vue"),
+        }, 
+        {
+            path: "/material/:id",
+            name: "materials",
+            component: () => import("../views/Material.vue"),
+        }, 
+        {
+            path: "/project/:id",
+            name: "project",
+            component: () => import("../views/Project.vue"),
+        }, 
+        {
+            path: "/community",
+            name: "community",
+            component: () => import("../views/Community.vue"),
         }, 
     ],
 });

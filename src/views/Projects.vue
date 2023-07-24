@@ -1,25 +1,24 @@
 <template>
-    <section class="materials">
+    <section class="projects">
         <div class="container">
             <div class="df-aic-jcsb">
                 <h2 class="title">Материалы</h2>
                 <Edit />
             </div>
-            <div class="materials-content">
-                <div class="materials-left">
-                    <div class="materials-subtitle">Область</div>
+            <div class="projects-content">
+                <div class="projects-left">
+                    <div class="projects-subtitle">Область</div>
                     <Checkbox v-for="item in store.state.listRu" :key="item.id" :item="item" />
-                    <Btn class="materials-btn" text="Применить фильтр" />
+                    <Btn class="projects-btn" text="Применить фильтр" />
                 </div>
-                <div class="materials-left another">
-                    <Dropdown class="materials-dropdown" />
+                <div class="projects-left another">
+                    <Dropdown class="projects-dropdown" />
                 </div>
-                <div class="materials-right">
-                    <router-link :to="`/material/` + item" v-for="item in 6" :key="item" class="materials-block">
-                        <div class="materials-subtitle">Дифференциальные уравнения</div>
+                <div class="projects-right">
+                    <router-link :to="`/project/` + item" v-for="item in 6" :key="item" class="projects-block">
+                        <div class="projects-subtitle">Дифференциальные уравнения</div>
                         <div class="line"></div>
-                        <div class="materials-item">.pdf</div>
-                        <div class="materials-item">YouTube</div>
+                        <div class="projects-item" v-for="item in 2" :key="item" >Автор {{ item }}</div> 
                     </router-link> 
                 </div>
             </div>
@@ -40,7 +39,7 @@ const store = useStore()
 </script>
 
 <style lang="scss">
-.materials {
+.projects {
 
     &-content {
         display: flex;

@@ -4,7 +4,10 @@
         <div class="container">
             <div class="df-aic-jcsb">
                 <h2 class="title">Персона</h2>
-                <BtnMess class="home-btn" text="Отправить сообщение" @click="store.state.modal = !store.state.modal" />
+                <div>
+                    <Edit />
+                    <BtnMess class="home-btn" text="Отправить сообщение" @click="store.state.modal = !store.state.modal" />
+                </div>
             </div>
             <div class="home-content">
                 <div class="home-block">
@@ -109,6 +112,7 @@ import { ref } from "vue";
 import Modal from "../components/Modal.vue";
 import { useStore } from "vuex";
 import BtnMess from "../components/btns/BtnMess.vue";
+import Edit from "../components/Edit.vue";
 
 const num = ref(3)
 const store = useStore()
