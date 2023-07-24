@@ -1,23 +1,22 @@
 <template>
-<header class="header">
+    <header class="header">
         <div class="container">
             <ul class="header-list">
                 <Burger />
-                <li v-for="item in store.state.listRu" :key="item.id" class="header-item">
+                <li v-for="item in store.state.listRu" :key="item.id" class="header-item" >
                     <router-link :to="item.link">{{ item.name }}</router-link>
                 </li>
-                <li  class="header-item another" :class="{ active: isActive }">
+                <li class="header-item another" :class="{ active: isActive }">
                     <div @click="isActive = !isActive" class="header-content">
                         {{ activeItem }}
-                        <Arrow class="header-arrow" :class="{active: isActive}" />
+                        <Arrow class="header-arrow" :class="{ active: isActive }" />
                     </div>
                     <div class="header-wrapper">
-                        <div class="header-langs" v-for="item in langs.filter(item => item !== activeItem)" @click="activeItem = item; isActive = false" :key="item">{{ item }}
+                        <div class="header-langs" v-for="item in langs.filter(item => item !== activeItem)"
+                            @click="activeItem = item; isActive = false" :key="item">{{ item }}
                         </div>
-                    </div>
-
-                </li>
-                
+                    </div> 
+                </li> 
             </ul>
         </div>
     </header>
@@ -30,7 +29,7 @@ import Arrow from "../../assets/icons/header/Arrow.vue";
 import Burger from "./Burger.vue";
 const store = useStore()
 const activeItem = ref("RUS")
-const isActive = ref(false)
+const isActive = ref(false) 
 
 const langs = ["RUS", "EN"]
 
@@ -39,7 +38,7 @@ const langs = ["RUS", "EN"]
 <style lang="scss">
 .header {
     padding: 38px 0;
-    background: rgba(255, 255, 255, 1); 
+    background: rgba(255, 255, 255, 1);
 
     &-list {
         display: flex;
@@ -68,7 +67,7 @@ const langs = ["RUS", "EN"]
                 border-bottom: 1px solid white;
                 overflow: unset;
             }
-        }
+        } 
     }
 
     &-content {
@@ -85,7 +84,7 @@ const langs = ["RUS", "EN"]
         top: 25px;
         border: 1px solid rgba(1, 14, 82, 1);
         border-top: unset;
-        width: 66px; 
+        width: 66px;
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -97,6 +96,7 @@ const langs = ["RUS", "EN"]
 
     &-arrow {
         transition: .3s;
+
         &.active {
             transform: rotate(180deg);
         }
@@ -105,6 +105,7 @@ const langs = ["RUS", "EN"]
     @media screen and (max-width:850px) {
         &-item {
             display: none;
+
             &.another {
                 display: flex;
             }

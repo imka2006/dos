@@ -1,7 +1,7 @@
 <template>
   <div class="checkbox">
     <div @click="isActive = !isActive" class="checkbox-wrapper">
-      {{ item?.name }}
+      {{ item?.name ? item.name : item  }}
       <Checked v-if="isActive" />
       <Check v-else />
     </div>

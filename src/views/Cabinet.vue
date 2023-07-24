@@ -4,13 +4,9 @@
     <div class="container">
       <div class="df-aic-jcsb">
         <h2 class="title">Персона</h2>
-        <div class="done">
+        <div class="home-done">
           <Edit @click="isedit = !isedit" />
-          <BtnMess
-            class="home-btn"
-            text="Отправить сообщение"
-            @click="store.state.modal = !store.state.modal"
-          />
+          <BtnMess class="home-btn" text="Отправить сообщение" @click="store.state.modal = !store.state.modal" />
         </div>
       </div>
       <div v-if="isedit" class="wrapper">
@@ -96,8 +92,7 @@
         <div class="df-aic-jcsb home-bottom-wrapper">
           <div v-for="item in num" :key="item" class="home-block mini">
             <h4 class="home-name">Дифференциальные уравнения</h4>
-            <span class="home-author">Авторы</span>
-            <div class="line"></div>
+            <span class="home-author">Авторы</span> 
             <ul class="home-list">
               <li v-for="item in num" :key="item" class="home-item">
                 Автор {{ item }}
@@ -108,7 +103,7 @@
       </div>
       <div v-else class="wrapper">
         <div class="home-content">
-          <div class="home-block">
+          <div class="home-block first">
             <div class="home-flex">
               <img :src="ava" alt="" />
               <Btn text="Загрузить фото" />
@@ -119,11 +114,7 @@
                 <form class="home-input">
                   <div class="home-fix">
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                   </div>
                 </form>
@@ -133,11 +124,7 @@
                 <form class="home-input">
                   <div class="home-fix">
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                   </div>
                 </form>
@@ -147,11 +134,7 @@
                 <form class="home-input">
                   <div class="home-fix">
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                   </div>
                 </form>
@@ -161,11 +144,7 @@
                 <form class="home-input">
                   <div class="home-fix">
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                   </div>
                 </form>
@@ -175,11 +154,7 @@
                 <form class="home-input">
                   <div class="home-fix">
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                   </div>
                 </form>
@@ -189,11 +164,7 @@
                 <form class="home-input">
                   <div class="home-fix">
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                   </div>
                 </form>
@@ -203,11 +174,7 @@
                 <form class="home-input">
                   <div class="home-fix">
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                   </div>
                 </form>
@@ -217,11 +184,7 @@
                 <form class="home-input">
                   <div class="home-fix">
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                   </div>
                 </form>
@@ -233,12 +196,7 @@
               <div class="home-block second">
                 <div class="home-check">
                   <div class="home-mark">
-                    <Check
-                      style="justife-content: space-between"
-                      v-for="item in check"
-                      :key="item.id"
-                      :item="item"
-                    />
+                    <Check style="justife-content: space-between" v-for="item in check" :key="item.id" :item="item" />
                   </div>
                 </div>
               </div>
@@ -248,34 +206,14 @@
                     <p class="home-title">Научные интересы</p>
                     <p class="home-subject">Тема</p>
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                     <div class="home-add">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 5V19"
-                          stroke="#010E52"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12H19"
-                          stroke="#010E52"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5V19" stroke="#010E52" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12H19" stroke="#010E52" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" />
                       </svg>
                       <div class="home-added">Добавить тему</div>
                     </div>
@@ -288,34 +226,14 @@
                     <p class="home-title">Общество</p>
                     <p class="home-subject">Название</p>
                     <label class="home-label">
-                      <input
-                        class="home-input"
-                        type="text"
-                        placeholder="Введите"
-                      />
+                      <input class="home-input" type="text" placeholder="Введите" />
                     </label>
                     <div class="home-add">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 5V19"
-                          stroke="#010E52"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12H19"
-                          stroke="#010E52"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5V19" stroke="#010E52" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12H19" stroke="#010E52" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" />
                       </svg>
                       <div class="home-added">Добавить тему</div>
                     </div>
@@ -325,6 +243,51 @@
             </div>
           </div>
         </div>
+        <div class="home-block" style="width: 100%; display: block;">
+          <h4 class="home-title">Дополнительные данные</h4>
+          <div class="home-input-wrapper">
+            <label class="home-idnt">
+              Номер телефона
+              <input type="text" class="home-input-sec another" placeholder="Введите">
+            </label>
+            <label class="home-idnt">
+              Linkedin
+              <input type="text" class="home-input-sec another" placeholder="Введите">
+            </label>
+          </div>
+          <div class="home-input-wrapper">
+            <label class="home-idnt">
+              Email
+              <input type="email" class="home-input-sec another" placeholder="Введите">
+            </label>
+            <label class="home-idnt">
+              Facebook
+              <input type="text" class="home-input-sec another" placeholder="Введите">
+            </label>
+          </div>
+          <div class="home-input-wrapper">
+            <label class="home-idnt">
+              Сайт
+              <input type="text" class="home-input-sec another" placeholder="Введите">
+            </label>
+            <label class="home-idnt">
+              Twitter
+              <input type="text" class="home-input-sec another" placeholder="Введите">
+            </label>
+          </div>
+        </div>
+
+        <div class="home-bottom">
+          <div class="home-inner">
+            <h4 class="home-title">Получать сообщения</h4>
+            <Check v-for="item in ['Да', 'Нет']" :key="item" :item="item" />
+          </div>
+          <div class="home-inner">
+            <h4 class="home-title">Видимость профиля</h4>
+            <Check v-for="item in ['Да', 'Нет']" :key="item" :item="item" />
+          </div>
+        </div>
+        <button class="home-delete">Удалить профиль</button>
       </div>
     </div>
   </section>
@@ -367,58 +330,131 @@ const store = useStore();
 
 <style lang="scss">
 .home {
+  .wrapper {
+    margin-bottom: 100px;
+  }
+
+  &-object {
+    width: 100%;
+  }
+
+  &-bottom {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+  }
+
+  &-delete {
+    color: #B81818;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 15px 35px;
+    border-radius: 2px;
+    border: 2px solid #B81818;
+    margin-top: 30px;
+    cursor: pointer;
+  }
+
+  &-inner {
+    width: 45%;
+  }
+
+  &-idnt {
+    display: block;
+    color: #181616;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+  }
+
+  &-input-sec.another {
+    border-radius: 2px;
+    border: 1px solid #BABABA;
+    padding: 16px 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &-input-wrapper {
+    display: flex;
+    gap: 40px;
+    margin-top: 25px;
+  }
+
+  &-done {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
   &-label {
     border: 1px solid gray;
     padding: 16px 0px 16px 10px;
     border-radius: 2px;
   }
+
   &-input {
-    width: 400px;
+    width: 100%;
   }
+
   &-title {
     margin-bottom: 30px;
     color: #010e52;
     font-weight: 700;
     font-size: 16px;
   }
-  &-add{
+
+  &-add {
     display: flex;
     align-items: center;
     margin-top: 65px;
   }
-  &-added{
-    color:#010e52;
+
+  &-added {
+    color: #010e52;
     font-weight: 700;
     font-size: 18px;
   }
+
   &-subject {
     margin-bottom: 20px;
     font-weight: 500;
     color: black;
     font-size: 18px;
   }
+
   &-triple {
     display: flex;
     flex-direction: column;
     gap: 30px;
   }
+
   &-mark {
     width: 100%;
   }
+
   &-check {
     width: 100%;
   }
+
   &-box {
     margin-bottom: 30px;
   }
+
   &-name {
     margin-bottom: 30px;
   }
+
   &-content {
     display: flex;
     gap: 30px;
     margin-bottom: 30px;
   }
+
   &-flex {
     display: flex;
     flex-direction: column;
@@ -433,10 +469,12 @@ const store = useStore();
     gap: 30px;
     box-sizing: border-box;
     width: 60%;
+
     &.second {
       width: 470px;
-      height: 328px;
+      height: 275px;
     }
+
     &.another {
       display: block;
       width: 40%;
@@ -537,6 +575,14 @@ const store = useStore();
     font-weight: 500;
   }
 
+  @media screen and (max-width: 1125px) {
+     &-block.first {
+      flex-direction: column;
+     }
+
+    //  &-block.second 
+  }
+
   @media screen and (max-width: 1045px) {
     &-info {
       width: 100%;
@@ -586,25 +632,39 @@ const store = useStore();
       font-size: 16px;
     }
   }
+
   @media screen and (max-width:968px) {
-    .home-block{
-        &.second{
-            width: 307px;
-        }
+    .home-block {
+      &.second {
+        width: 307px;
+      }
     }
-    .home-input{
-        width: 228px;
+
+    .home-input {
+      width: 100%;
     }
   }
+  @media screen and (max-width:968px) {
+    &-input-wrapper {
+      flex-direction: column;
+      gap: 25px;
+    }
+    &-idnt {
+      width: 100%;
+    }
+  }
+
   @media screen and (max-width:320px) {
-    .home-input{
-        width: 205px;
+    .home-input {
+      width: 205px;
     }
   }
+
   @media screen and (max-width: 450px) {
     &-ava_wrapper {
       width: 100%;
     }
+
     &-host.another.cocial {
       gap: 10px;
     }
@@ -615,6 +675,19 @@ const store = useStore();
 
     &-more {
       gap: 10px;
+    }
+
+    &-bottom {
+      flex-direction: column;
+      gap: 25px;
+    } 
+
+    &-inner {
+      width: 100%;
+    }
+
+    &-delete {
+      width: 100%;
     }
   }
 }

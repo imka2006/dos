@@ -79,6 +79,23 @@ input {
     height: 1px;
     background: rgba(201, 201, 201, 1); 
 }
+.router-link-active.router-link-exact-active {
+    position: relative;
+
+            &::after {
+                position: absolute;
+                content: "";
+                left: 0;
+                bottom: 0px;
+                height: 1px;
+                width: 100%;
+                background: rgba(1, 14, 82, 1); 
+            }
+}
+textarea {
+    border: none;
+    outline: none;
+}
 @media screen and (max-width:750px) {
     .line {
         margin: 15px 0;

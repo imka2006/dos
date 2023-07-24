@@ -2,8 +2,7 @@
     <section class="materials">
         <div class="container">
             <div class="df-aic-jcsb">
-                <h2 class="title">Материалы</h2>
-                <Edit />
+                <h2 class="title">Материалы</h2> 
             </div>
             <div class="materials-content">
                 <div class="materials-left">

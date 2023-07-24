@@ -2,7 +2,7 @@
     <section class="projects">
         <div class="container">
             <div class="df-aic-jcsb">
-                <h2 class="title">Материалы</h2>
+                <h2 class="title">Проекты</h2>
                 <Edit />
             </div>
             <div class="projects-content">
