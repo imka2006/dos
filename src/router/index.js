@@ -30,7 +30,7 @@ const router = createRouter({
         }, 
         {
             path: "/material/:id",
-            name: "materials",
+            name: "materials-own",
             component: () => import("../views/Material.vue"),
         }, 
         {
