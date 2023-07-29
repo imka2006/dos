@@ -2,10 +2,10 @@
     <section class="signin">
         <div class="container">
             <h2 class="signin-title">Вход</h2>
-            <form class="signin-content">
+            <form @submit.prevent class="signin-content">
                 <span class="signin-text">Электронная почта</span>
                 <label class="signin-label">
-                    <input type="email" placeholder="Введите" class="signin-input" required v-model="email">
+                    <input type="text" placeholder="Введите" class="signin-input" required v-model="email">
                 </label>
                 <span class="signin-text">Пароль</span>
                 <label class="signin-label">
@@ -19,8 +19,11 @@
                     </div>
                 </label>
 
-                <Btn class="signin-btn" text="Вход" />
+                <Btn @click="hangleLogin" class="signin-btn" text="Вход" />
                 <Btn class="signin-btn second" :disabled="false" text="Отмена" /> 
+                <div style="text-align: center; margin-top: 20px; font-weight: 900;">
+                    <router-link to="/signup">Зарегистрироваться</router-link>
+                </div>
             </form>
         </div>
     </section>
@@ -31,10 +34,24 @@ import { ref } from "vue";
 import UnShow from "../assets/icons/sign/UnShow.vue";
 import Show from "../assets/icons/sign/Show.vue";
 import Btn from "../components/btns/Btn.vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router"
+
+const store = useStore();
+const router = useRouter();
 const password = ref("")
 const email = ref("")
 
 const isShow = ref(false)
+
+const hangleLogin = async () => {
+    await store.dispatch("signIn", {
+        username: email.value,
+        password: password.value
+    })
+
+    router.push("/cabinet")
+};
 </script>
 
 <style lang="scss">

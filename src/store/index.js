@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { config } from "./config";
 
 export default createStore({
     state: {
@@ -7,16 +8,6 @@ export default createStore({
                 id: 0,
                 name: "Projects",
                 link: "/projects",
-            },
-            {
-                id: 1,
-                name: "Business",
-                link: "/",
-            },
-            {
-                id: 2,
-                name: "Engineering",
-                link: "/",
             },
             {
                 id: 3,
@@ -41,16 +32,6 @@ export default createStore({
                 link: "/projects",
             },
             {
-                id: 1,
-                name: "Бизнес",
-                link: "/",
-            },
-            {
-                id: 2,
-                name: "Инжиниринг",
-                link: "/",
-            },
-            {
                 id: 3,
                 name: "Материалы",
                 link: "/materials",
@@ -60,17 +41,64 @@ export default createStore({
                 name: "Сообщество",
                 link: "/community",
             },
-            {
-                id: 5,
-                name: "Личный кабинет",
-                link: "/cabinet",
-            },
         ],
         burger: false,
         modal: false,
+        language: "ru",
+        sciences: [],
+        userInfo: JSON.parse(localStorage.getItem('user_info'))
     },
     getters: {},
-    mutations: {},
-    actions: {},
+    mutations: {
+        setLanguage(state, data) {
+            state.language = data
+        },
+        setSciences(state,data) {
+            state.sciences = data
+        },
+        setUserInfo(state, data) {
+            state.userInfo = data
+        }
+    },
+    actions: {
+        getSciences: async (store) => {
+            const res = await fetch(config.baseUrl + "science/list")
+            const data = await res.json();
+
+            store.commit("setSciences", data.results)
+        },
+        signUp: async (store, data) => {
+            localStorage.clear();
+
+            const res = await fetch(config.baseUrl + "auth/register", {
+                method: "POST",
+                headers: config.headers,
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+
+            localStorage.setItem("access_token", JSON.stringify(result.access));
+            localStorage.setItem("user_info", JSON.stringify(result.user));
+            store.commit("setUserInfo", result.user)
+        },
+        signIn: async (store, data) => {
+            localStorage.clear();
+
+            const res = await fetch(config.baseUrl + "auth/login", {
+                method: "POST",
+                headers: config.headers,
+                body: JSON.stringify(data)
+            })
+            const result = await res.json();
+
+            localStorage.setItem("access_token", JSON.stringify(result.access));
+            localStorage.setItem("user_info", JSON.stringify(result.user));
+            store.commit("setUserInfo", result.user)
+        },
+        getUserInfo: async (store, data) => {
+            const res = await fetch(config.baseUrl + "person/list/?" + data)
+            const result = await res.json();
+        }
+    },
     modules: {},
 });
