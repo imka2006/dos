@@ -9,6 +9,9 @@
                 <li class="header-item">
                     <router-link :to="store.state.userInfo ? '/cabinet' : '/signin'">Личный кабинет</router-link>
                 </li>
+                <li class="header-item">
+                    <span v-if="store.state.userInfo" @click="handleLogout">Выйти из аккаунта</span>
+                </li>
                 <li class="header-item another" :class="{ active: isActive }">
                     <div @click="isActive = !isActive" class="header-content">
                         {{ activeItem.toUpperCase() }}
@@ -27,6 +30,7 @@
 
 <script setup>
 import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import Arrow from "../../assets/icons/header/Arrow.vue";
 import Burger from "./Burger.vue";
@@ -39,6 +43,16 @@ const langs = ["ru", "en", "ky"]
 watch(activeItem, () => {
     store.commit("setLanguage", activeItem.value)
 })
+
+const userActive = ref(JSON.parse(localStorage.getItem('user_info')))
+
+const router = useRouter()
+
+const handleLogout = () => {
+    localStorage.clear();
+    userActive.value = localStorage.getItem('user_info')
+    router.push("/signin")
+}
 </script>
 
 <style lang="scss">
