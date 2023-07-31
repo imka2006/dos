@@ -14,12 +14,15 @@
                     <Dropdown class="materials-dropdown" />
                 </div>
                 <div class="materials-right">
-                    <router-link :to="`/material/` + item" v-for="item in 6" :key="item" class="materials-block">
-                        <div class="materials-subtitle">Дифференциальные уравнения</div>
+                    <div v-for="item in items" :key="item.id" class="materials-block">
+                        <div class="materials-subtitle">{{item.title}}</div>
                         <div class="line"></div>
-                        <div class="materials-item">.pdf</div>
-                        <div class="materials-item">YouTube</div>
-                    </router-link> 
+                        <div class="materials-links">
+                            <a :href="item.pdf" target="_blank" class="materials-item">.pdf</a>
+                            <a :href="item.youtube" target="_blank" class="materials-item">YouTube</a>
+                            <router-link :to="`/material/` + item.id" class="materials-item" style="text-decoration: underline;">Подробнее</router-link>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -27,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import Checkbox from "../components/checks/Checkbox.vue";
 import Btn from "../components/btns/Btn.vue";
@@ -35,6 +38,19 @@ import Dropdown from "../components/Dropdown.vue";
 import Edit from "../components/Edit.vue";
 
 const store = useStore()
+
+const items = ref([]);
+
+const getData = async () => {
+    const res = await fetch("http://89.208.106.189/api/v1/material/list");
+    const data = await res.json();
+
+    items.value = data.results
+}
+
+onMounted(() => {
+    getData()
+})
 
 </script>
 
@@ -44,6 +60,11 @@ const store = useStore()
     &-content {
         display: flex;
         gap: 100px;
+    }
+
+    &-links {
+        display: flex;
+        flex-direction: column;
     }
 
     &-left {

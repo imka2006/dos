@@ -16,7 +16,7 @@
               <img :src="ava" alt="ava" />
             </div>
             <div class="home-info">
-              <h4 class="home-name">Землянский Семиандр Никифорович</h4>
+              <h4 class="home-name">{{ store.state.userInfo.last_name + ' ' + store.state.userInfo.first_name }}</h4>
               <span class="home-age">45 лет, мужчина</span>
               <div class="home-more">
                 <span class="home-pointer">Ученая степень</span>
@@ -56,7 +56,7 @@
             <div class="line"></div>
             <div class="home-more">
               <span class="home-pointer">Email</span>
-              <div class="home-host another">zemlyansky900@gmail.com</div>
+              <div class="home-host another">{{ store.state.userInfo.email }}</div>
             </div>
             <div class="line"></div>
             <div class="home-more">
@@ -70,13 +70,13 @@
                 <a href="#" target="_blank">
                   <In />
                 </a>
-                <a href="#" target="_blank">
+                <a v-if="store.state.userInfo.twitter" href="#" target="_blank">
                   <Twiter />
                 </a>
-                <a href="#" target="_blank">
+                <a v-if="store.state.userInfo.facebook" href="#" target="_blank">
                   <Facebook />
                 </a>
-                <a href="#" target="_blank">
+                <a v-if="store.state.userInfo.youtube" href="#" target="_blank">
                   <Youtube />
                 </a>
               </div>
@@ -299,7 +299,7 @@ import In from "../assets/icons/home/In.vue";
 import Twiter from "../assets/icons/home/Twiter.vue";
 import Facebook from "../assets/icons/home/Facebook.vue";
 import Youtube from "../assets/icons/home/Youtube.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Modal from "../components/Modal.vue";
 import { useStore } from "vuex";
 import BtnMess from "../components/btns/BtnMess.vue";
@@ -324,8 +324,12 @@ const check = [
   },
 ];
 const num = ref(3);
-const isedit = ref(false);
+const isedit = ref(true);
 const store = useStore();
+
+onMounted(() => {
+  console.log(store.state.userInfo);
+})
 </script>
 
 <style lang="scss">

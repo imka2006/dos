@@ -6,14 +6,17 @@
                 <li v-for="item in store.state.listRu" :key="item.id" class="header-item" >
                     <router-link :to="item.link">{{ item.name }}</router-link>
                 </li>
+                <li class="header-item">
+                    <router-link :to="store.state.userInfo ? '/cabinet' : '/signin'">Личный кабинет</router-link>
+                </li>
                 <li class="header-item another" :class="{ active: isActive }">
                     <div @click="isActive = !isActive" class="header-content">
-                        {{ activeItem }}
+                        {{ activeItem.toUpperCase() }}
                         <Arrow class="header-arrow" :class="{ active: isActive }" />
                     </div>
                     <div class="header-wrapper">
                         <div class="header-langs" v-for="item in langs.filter(item => item !== activeItem)"
-                            @click="activeItem = item; isActive = false" :key="item">{{ item }}
+                            @click="activeItem = item; isActive = false" :key="item">{{ item.toUpperCase() }}
                         </div>
                     </div> 
                 </li> 
@@ -23,16 +26,19 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useStore } from "vuex";
 import Arrow from "../../assets/icons/header/Arrow.vue";
 import Burger from "./Burger.vue";
 const store = useStore()
-const activeItem = ref("RUS")
-const isActive = ref(false) 
+const activeItem = ref("ru")
+const isActive = ref(false)
 
-const langs = ["RUS", "EN"]
+const langs = ["ru", "en", "ky"]
 
+watch(activeItem, () => {
+    store.commit("setLanguage", activeItem.value)
+})
 </script>
 
 <style lang="scss">

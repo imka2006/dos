@@ -3,8 +3,8 @@
         <div @click="store.state.modal = !store.state.modal" class="modal-close"></div>
         <div class="modal-content">
             <Close @click="store.state.modal = !store.state.modal" class="modal-btn" />
-            <BtnLink text="Регистрация" link="/signup" />
-            <BtnLink text="Вход" link="/signin" />
+            <BtnLink  @click="store.state.modal = !store.state.modal" text="Регистрация" link="/signup" />
+            <BtnLink  @click="store.state.modal = !store.state.modal" text="Вход" link="/signin" />
         </div>
     </div>
 </template>
