@@ -81,7 +81,7 @@ export default createStore({
                 localStorage.setItem("user_info", JSON.stringify(result.user));
                 store.commit("setUserInfo", result.user)
             } else {
-                console.log(result.detail);
+                console.log(result);
             }
         },
         signIn: async (store, data) => {
