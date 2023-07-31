@@ -69,19 +69,19 @@ export default createStore({
         signUp: async (store, data) => {
             localStorage.clear();
 
-            try {
-                const res = await fetch(config.baseUrl + "auth/register", {
-                    method: "POST",
-                    headers: config.headers,
-                    body: JSON.stringify(data)
-                });
-                const result = await res.json();
-    
+            const res = await fetch(config.baseUrl + "auth/register", {
+                method: "POST",
+                headers: config.headers,
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+
+            if(result.user) {
                 localStorage.setItem("access_token", JSON.stringify(result.access));
                 localStorage.setItem("user_info", JSON.stringify(result.user));
                 store.commit("setUserInfo", result.user)
-            } catch (e) {
-                console.log(e);
+            } else {
+                console.log(result.detail);
             }
         },
         signIn: async (store, data) => {

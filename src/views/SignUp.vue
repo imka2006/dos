@@ -210,7 +210,12 @@ const handleRegister = () => {
         password: password.value,
         science: activeItemScience.value.id,
         email: email.value,
-        profession: null
+        profession: null,
+        phone: phone.value,
+        city: city.value,
+        twitter: twitter.value,
+        facebook: facebook.value,
+        youtube: youtube.value,
     })
 }
 
