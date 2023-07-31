@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox">
-    <div @click="isActive = !isActive" class="checkbox-wrapper">
+    <div @click="handleClick(item?.name ? item.name : item )" class="checkbox-wrapper">
       {{ item?.name ? item.name : item  }}
       <Checked v-if="isActive" />
       <Check v-else />
@@ -13,8 +13,18 @@ import { ref } from 'vue';
 import { useStore } from 'vuex';
 import Check from '../../assets/icons/checkbox/Check.vue';
 import Checked from '../../assets/icons/checkbox/Checked.vue';
+import { defineEmits } from 'vue';
+
 
 defineProps(["item"])
+
+const emits = defineEmits(['childClick']);
+
+// Обработчик события клика
+const handleClick = (item) => {
+  isActive.value = !isActive.value
+  emits('childClick', item, isActive.value);
+};
 
 const store = useStore()
 const isActive = ref(false) 

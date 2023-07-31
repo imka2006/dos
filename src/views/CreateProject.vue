@@ -3,7 +3,8 @@
     <div class="container">
       <div class="df-aic-jcsb">
         <h2 class="title">Проект</h2>
-        <Btn v-if="isActive" @click="edit = !edit" style="padding: 15px 70px;" text="Присоединиться" class="btn-first" />
+        <Btn v-if="isActive" @click="$router.push('/projects')" style="padding: 15px 70px;" text="Назад"
+          class="btn-first" />
         <Btn v-else @click="edit = !edit" style="padding: 15px 70px;" text="Покинуть проект" />
       </div>
       <div v-if="edit" class="prolect-material-wrapper">
@@ -51,38 +52,29 @@
 
       <div v-else>
         <h4 class="prolect-material-name">Название</h4>
-        <input type="text" class="prolect-material-input" placeholder="Введите">
+        <input type="text" class="prolect-material-input" placeholder="Введите" v-model="title">
         <h4 class="prolect-material-name">Аннотация</h4>
-        <textarea class="prolect-material-input" placeholder="Введите"></textarea>
+        <textarea class="prolect-material-input" placeholder="Введите" v-model="textArea"></textarea>
         <h4 class="prolect-material-name">Область</h4>
 
         <div class="prolect-material-checkbox-wrapper">
           <div class="prolect-material-checkbox">
-            <Checkbox v-for="item in ['Математика', 'Физика', 'Химия']" :key="item" :item="item" />
-          </div>
-          <div class="prolect-material-checkbox">
-            <Checkbox v-for="item in ['Математика', 'Физика', 'Химия']" :key="item" :item="item" />
-          </div>
-          <div class="prolect-material-checkbox">
-            <Checkbox v-for="item in ['Математика', 'Физика', 'Химия']" :key="item" :item="item" />
+            <CheckboxSec @childClickSec="handleChildClickSec" v-for="item in store.state.sciences" :key="item.title_ru"
+              :item="item.title_ru" />
           </div>
         </div>
         <h4 class="prolect-material-name">Автор</h4>
-        <input type="text" class="prolect-material-input" placeholder="Введите">
+        <input type="text" class="prolect-material-input" placeholder="Введите" v-model="author">
         <div class="prolect-material-more">
           <Plus />
           Добавить автора
         </div>
-        <h4 class="prolect-material-name">Файлы</h4>
-        <h4 class="prolect-material-text">YouTube</h4>
-        <input type="text" class="prolect-material-input" placeholder="Ссылка">
-        <div class="prolect-material-more">
-          <Plus />
-          Добавить PDF файл
+        <h4 class="prolect-material-name">Дисциплины</h4>
+        <div class="prolect-material-checkbox">
+          <Checkbox @childClick="handleChildClick" v-for="item in store.state.sciences" :key="item.title_ru"
+            :item="item.title_ru" />
         </div>
-        <h4 class="prolect-material-name">Дата</h4>
-        <input type="text" class="prolect-material-input another" placeholder="Введите">
-        <button class="prolect-material-btn">Удалить материал</button>
+        <button @click="postFetch" class="prolect-material-btn">Создать материал</button>
       </div>
       <template v-if="edit">
         <h4 class="home-name blue">Участие в проектах</h4>
@@ -105,13 +97,62 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Btn from '../components/btns/Btn.vue';
 import Checkbox from '../components/checks/Checkbox.vue';
+import CheckboxSec from '../components/checks/CheckboxSec.vue';
 import Plus from '../assets/icons/global/Plus.vue';
+import { useStore } from 'vuex';
 const edit = ref(false)
 const isActive = ref(true)
+const store = useStore()
+const textArea = ref("")
+const title = ref("")
+const author = ref("")
+const region = ref([])
+const disciplines = ref([])
 
+
+const handleChildClick = (item, isActive) => {
+  if (isActive) {
+    disciplines.value.push(item)
+  } else {
+    const data = disciplines.value = disciplines.value.filter(inner => inner !== item)
+    disciplines.value = data
+  }
+};
+
+const handleChildClickSec = (item, isActive) => {
+  if (isActive) {
+    region.value.push(item)
+  } else {
+    const data = region.value = region.value.filter(inner => inner !== item)
+    region.value = data
+  }
+};
+
+
+const postFetch = async () => {
+  const data = {
+    textArea: textArea.value,
+    title: title.value,
+    author: author.value,
+    region: region.value,
+    disciplines: disciplines.value,
+  }
+  const res = await fetch("http://89.208.106.189/api/v1/project/create", {
+    method: "POST",
+    headers: {'Content-Type': 'application/json;charset=utf-8', Authorization: `Bearer ${JSON.parse(localStorage.getItem("access_token"))}`},
+    body: JSON.stringify(data)
+  });
+  const result = await res.json();
+  console.log(result);
+}
+
+
+onMounted(() => {
+  store.dispatch("getSciences")
+})
 </script>
 
 <style lang="scss">
@@ -157,6 +198,8 @@ textarea {
     border-radius: 2px;
     border: 2px solid #B81818;
     display: block;
+    margin-top: 50px;
+    cursor: pointer;
   }
 
   &-text {
@@ -318,10 +361,6 @@ textarea {
 
     &-content {
       width: 100%;
-    }
-
-    .btn-first {
-      display: none;
     }
 
     .btn-second {
@@ -724,4 +763,5 @@ textarea {
       width: 100%;
     }
   }
-}</style>
+}
+</style>

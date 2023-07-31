@@ -17,6 +17,7 @@ button {
     background: rgba(1, 14, 82, 0);
     color: rgba(1, 14, 82, 1);
     cursor: pointer;
+    
 
     &:disabled {
         border: 2px solid #BABABA;

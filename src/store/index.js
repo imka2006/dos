@@ -44,7 +44,7 @@ export default createStore({
         ],
         burger: false,
         modal: false,
-        language: "ru",
+        language: "ru", 
         sciences: [],
         userInfo: JSON.parse(localStorage.getItem('user_info'))
     },
