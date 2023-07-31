@@ -94,9 +94,43 @@
           <input type="number" placeholder="Введите" class="signup-input" required v-model="phone" />
         </label>
         <span class="signup-text">Город</span>
-        <label class="signup-label">
+        <div @click="isActiveCity = !isActiveCity" :class="{ active: isActiveCity }" class="dropdown">
+          <div class="dropdown-active" :class="{ active: isActiveCity }">
+            {{ isItemCity['title_' + store.state.language] }}
+            <svg
+              :class="{ active: isActiveCity }"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 9.75L12 15.75L18 9.75"
+                stroke="#010E52"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div v-show="isActiveCity" class="dropdown-wrapper" :class="{ active: isActiveCity }">
+            <div
+              class="dropdown-item"
+              @click="
+                isActiveCity = true,
+                isItemCity = item
+              "
+              v-for="item in store.state.cities.filter(item => item['title_' + store.state.language] !== isItemCity['title_' + store.state.language])"
+              :key="item.id"
+            >
+              {{ item['title_' + store.state.language] }}
+            </div>
+          </div>
+        </div>
+        <!-- <label class="signup-label">
           <input type="text" placeholder="Введите" class="signup-input" required v-model="city" />
-        </label>
+        </label> -->
         <span class="signup-text">twitter</span>
         <label class="signup-label">
           <input type="text" placeholder="Введите ссылку" class="signup-input" required v-model="twitter" />
@@ -187,6 +221,7 @@ const twitter = ref("")
 const facebook = ref("")
 const youtube = ref("")
 const activeItem = ref("Выберите")
+
 const activeItemScience = ref({
     title_ru: "Выберите",
     title_ky: "Танда",
@@ -198,6 +233,13 @@ const isItem = ref(false)
 
 const isActiveScience = ref(false)
 const isItemScience = ref(false)
+
+const isActiveCity = ref(false)
+const isItemCity = ref({
+    title_ru: "Выберите",
+    title_ky: "Танда",
+    title_en: "Choose"
+})
 
 const isShow = ref(false)
 const isShowSec = ref(false)
@@ -221,6 +263,7 @@ const handleRegister = () => {
 
 onMounted(() => {
     store.dispatch("getSciences")
+    store.dispatch("getCities")
 })
 </script>
 

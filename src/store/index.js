@@ -46,6 +46,7 @@ export default createStore({
         modal: false,
         language: "ru",
         sciences: [],
+        cities: [],
         userInfo: JSON.parse(localStorage.getItem('user_info'))
     },
     getters: {},
@@ -58,6 +59,9 @@ export default createStore({
         },
         setUserInfo(state, data) {
             state.userInfo = data
+        },
+        setCities(state, data) {
+            state.cities = data
         }
     },
     actions: {
@@ -65,6 +69,11 @@ export default createStore({
             const res = await fetch(config.baseUrl + "science/list")
             const data = await res.json(); 
             store.commit("setSciences", data.results)
+        },
+        getCities: async (store) => {
+            const res = await fetch(config.baseUrl + "city/list")
+            const data = await res.json(); 
+            store.commit("setCities", data.results)
         },
         signUp: async (store, data) => {
             localStorage.clear();

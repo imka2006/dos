@@ -4,7 +4,7 @@
     <div class="container">
       <div class="df-aic-jcsb">
         <h2 class="title">Персона</h2>
-        <div class="home-done">
+        <div v-if="false" class="home-done">
           <Edit @click="isedit = !isedit" />
           <BtnMess class="home-btn" text="Отправить сообщение" @click="store.state.modal = !store.state.modal" />
         </div>
