@@ -2,7 +2,7 @@
     <section class="signin">
         <div class="container">
             <h2 class="signin-title">Вход</h2>
-            <form class="signin-content">
+            <form @submit.prevent="signIn()" class="signin-content">
                 <span class="signin-text">Электронная почта</span>
                 <label class="signin-label">
                     <input type="email" placeholder="Введите" class="signin-input" required v-model="email">
@@ -31,10 +31,23 @@ import { ref } from "vue";
 import UnShow from "../assets/icons/sign/UnShow.vue";
 import Show from "../assets/icons/sign/Show.vue";
 import Btn from "../components/btns/Btn.vue";
+import { useRouter } from 'vue-router';
+
 const password = ref("")
 const email = ref("")
+const router = useRouter()
 
 const isShow = ref(false)
+
+const signIn  = () => {
+    if(password.value.trim() == '123' && email.value.trim() == 'qwerty@gmail.com') {
+        router.push("/projects")
+    } else {
+        console.log("Пароль или Gmail не правельный!")
+    }
+
+}
+
 </script>
 
 <style lang="scss">
