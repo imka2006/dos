@@ -70,16 +70,20 @@ export default createStore({
         signUp: async (store, data) => {
             localStorage.clear();
 
-            const res = await fetch(config.baseUrl + "auth/register", {
-                method: "POST",
-                headers: config.headers,
-                body: JSON.stringify(data)
-            });
-            const result = await res.json();
-
-            localStorage.setItem("access_token", JSON.stringify(result.access));
-            localStorage.setItem("user_info", JSON.stringify(result.user));
-            store.commit("setUserInfo", result.user)
+            try {
+                const res = await fetch(config.baseUrl + "auth/register", {
+                    method: "POST",
+                    headers: config.headers,
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+    
+                localStorage.setItem("access_token", JSON.stringify(result.access));
+                localStorage.setItem("user_info", JSON.stringify(result.user));
+                store.commit("setUserInfo", result.user)
+            } catch (e) {
+                console.log(e);
+            }
         },
         signIn: async (store, data) => {
             localStorage.clear();
@@ -91,9 +95,13 @@ export default createStore({
             })
             const result = await res.json();
 
-            localStorage.setItem("access_token", JSON.stringify(result.access));
-            localStorage.setItem("user_info", JSON.stringify(result.user));
-            store.commit("setUserInfo", result.user)
+            if(result.detail) {
+                console.log(result.detail);
+            } else {
+                localStorage.setItem("access_token", JSON.stringify(result.access));
+                localStorage.setItem("user_info", JSON.stringify(result.user));
+                store.commit("setUserInfo", result.user)
+            }
         },
         getUserInfo: async (store, data) => {
             const res = await fetch(config.baseUrl + "person/list/?" + data)

@@ -10,20 +10,20 @@
                 </div>
             </div>
             <div v-if="edit" class="material-wrapper">
-                <ul class="material-list">
+                <ul v-if="item" class="material-list">
                     <li class="material-item">
                         <div class="material-pointer">Название</div>
-                        <div class="material-host">Проект</div>
+                        <div class="material-host">{{item.title}}</div>
                     </li>
                     <div class="line"></div>
                     <li class="material-item">
                         <div class="material-pointer">Дата</div>
-                        <div class="material-host">13.07.2023</div>
+                        <div class="material-host">{{item?.year.replace(/-/g, ".").split(".").reverse().join(".")}}</div>
                     </li>
                     <div class="line"></div>
                     <li class="material-item">
                         <div class="material-pointer">Область</div>
-                        <div class="material-host">Математика, физика</div>
+                        <div class="material-host"><span v-for="discipline in item.disciplines" :key="discipline">{{ discipline.title }}</span></div>
                     </li>
                     <div class="line"></div>
                     <li class="material-item">
@@ -78,13 +78,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Edit from '../components/Edit.vue';
 import Btn from '../components/btns/Btn.vue';
 import Checkbox from '../components/checks/Checkbox.vue';
 import Plus from '../assets/icons/global/Plus.vue';
+import { useRoute } from 'vue-router';
 const edit = ref(true)
 
+const item = ref(null);
+const route = useRoute()
+
+const getData = async () => {
+    const res = await fetch("http://89.208.106.189/api/v1/material/detail/" + route.params.id);
+    const data = await res.json();
+    console.log(data);
+    item.value = data
+}
+
+onMounted(() => {
+    getData()
+})
 
 </script>
 

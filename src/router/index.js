@@ -32,7 +32,7 @@ const router = createRouter({
             path: "/material/:id",
             name: "materials-own",
             component: () => import("../views/Material.vue"),
-        }, 
+        },
         {
             path: "/project/:id",
             name: "project",
