@@ -63,8 +63,7 @@ export default createStore({
     actions: {
         getSciences: async (store) => {
             const res = await fetch(config.baseUrl + "science/list")
-            const data = await res.json();
-
+            const data = await res.json(); 
             store.commit("setSciences", data.results)
         },
         signUp: async (store, data) => {

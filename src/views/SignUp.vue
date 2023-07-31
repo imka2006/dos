@@ -89,6 +89,26 @@
         <label class="signup-label">
           <input type="email" placeholder="Введите" class="signup-input" required v-model="email" />
         </label>
+        <span class="signup-text">Номер телефона</span>
+        <label class="signup-label">
+          <input type="number" placeholder="Введите" class="signup-input" required v-model="phone" />
+        </label>
+        <span class="signup-text">Город</span>
+        <label class="signup-label">
+          <input type="text" placeholder="Введите" class="signup-input" required v-model="city" />
+        </label>
+        <span class="signup-text">twitter</span>
+        <label class="signup-label">
+          <input type="text" placeholder="Введите ссылку" class="signup-input" required v-model="twitter" />
+        </label>
+        <span class="signup-text">facebook</span>
+        <label class="signup-label">
+          <input type="text" placeholder="Введите ссылку" class="signup-input" required v-model="facebook" />
+        </label>
+        <span class="signup-text">youtube</span>
+        <label class="signup-label">
+          <input type="text" placeholder="Введите ссылку" class="signup-input" required v-model="youtube" />
+        </label>
         <span class="signup-text">Пароль</span>
         <label class="signup-label">
           <div class="signup-wrapper">
@@ -161,6 +181,11 @@ const email = ref('')
 const username = ref('')
 const firstName = ref('')
 const lastName = ref('')
+const phone = ref("")
+const city = ref("")
+const twitter = ref("")
+const facebook = ref("")
+const youtube = ref("")
 const activeItem = ref("Выберите")
 const activeItemScience = ref({
     title_ru: "Выберите",
