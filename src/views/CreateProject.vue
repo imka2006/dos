@@ -112,6 +112,12 @@ const author = ref("")
 const region = ref([])
 const disciplines = ref([])
 
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, '0'); // Добавляем ведущий ноль, если месяц состоит из одной цифры
+const day = String(today.getDate()).padStart(2, '0'); // Добавляем ведущий ноль, если день состоит из одной цифры
+
+const formattedDate = `${year}-${month}-${day}`;  
 
 const handleChildClick = (item, isActive) => {
   if (isActive) {
@@ -134,11 +140,12 @@ const handleChildClickSec = (item, isActive) => {
 
 const postFetch = async () => {
   const data = {
-    textArea: textArea.value,
+    description: textArea.value,
     title: title.value,
     author: author.value,
     region: region.value,
     disciplines: disciplines.value,
+    year: formattedDate,
   }
   const res = await fetch("http://89.208.106.189/api/v1/project/create", {
     method: "POST",
