@@ -142,9 +142,10 @@ const postFetch = async () => {
   const data = {
     description: textArea.value,
     title: title.value,
-    author: author.value,
+    members: ["1"],
     region: region.value,
-    disciplines: disciplines.value,
+    disciplines: ['1'],
+    science: disciplines.value.length,
     year: formattedDate,
   }
   const res = await fetch("http://89.208.106.189/api/v1/project/create", {

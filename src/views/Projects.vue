@@ -15,10 +15,10 @@
                     <Dropdown class="projects-dropdown" />
                 </div>
                 <div class="projects-right">
-                    <div v-for="item in 6" :key="item" class="projects-block">
-                        <div class="projects-subtitle">Дифференциальные уравнения</div>
+                    <div v-for="item in items" :key="item.id" class="projects-block">
+                        <div class="projects-subtitle">{{item.title}}</div>
                         <div class="line"></div>
-                        <div class="projects-item" v-for="item in 2" :key="item" >Автор {{ item }}</div> 
+                        <div v-for="el in user" class="projects-item" :key="el.first_name" >id автора: {{ el.first_name }}</div> 
                     </div> 
                 </div>
             </div>
@@ -27,14 +27,36 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import Checkbox from "../components/checks/Checkbox.vue";
 import Btn from "../components/btns/Btn.vue";
-import Dropdown from "../components/Dropdown.vue";
-import Edit from "../components/Edit.vue";
+import Dropdown from "../components/Dropdown.vue"; 
 
 const store = useStore()
+const items = ref([])
+const user = ref(null)
+const userInfo = JSON.parse(localStorage.getItem("user_info"))
+
+
+
+const getData = async () => {
+    const res = await fetch("http://89.208.106.189/api/v1/project/list");
+    const data = await res.json();
+
+    items.value = data.results 
+}
+
+const getuser = async () => {
+    const res = await fetch("http://89.208.106.189/api/v1/authors/list?id=" + userInfo.id);
+    const data = await res.json(); 
+    user.value = data.results; 
+}
+
+onMounted(() => {
+    getData()
+    getuser()
+})
 
 </script>
 

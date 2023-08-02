@@ -39,6 +39,11 @@ const router = createRouter({
             component: () => import("../views/CreateProject.vue"),
         }, 
         {
+            path: "/create-matrerial",
+            name: "create-matrerial",
+            component: () => import("../views/CreateMatrerial.vue"),
+        }, 
+        {
             path: "/community",
             name: "community",
             component: () => import("../views/Community.vue"),

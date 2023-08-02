@@ -325,11 +325,7 @@ const check = [
 ];
 const num = ref(3);
 const isedit = ref(true);
-const store = useStore();
-
-onMounted(() => {
-  console.log(store.state.userInfo);
-})
+const store = useStore(); 
 </script>
 
 <style lang="scss">

@@ -8,7 +8,8 @@
                 <div class="materials-left">
                     <div class="materials-subtitle">Область</div>
                     <Checkbox v-for="item in store.state.listRu" :key="item.id" :item="item" />
-                    <Btn class="materials-btn" text="Применить фильтр" />
+                    <Btn style="width: 100%;" class="materials-btn" text="Применить фильтр" />
+                    <Btn @click="$router.push('/create-matrerial')" style="width: 100%;" class="materials-btn" text="Создать материал" />
                 </div>
                 <div class="materials-left another">
                     <Dropdown class="materials-dropdown" />
@@ -56,6 +57,7 @@ onMounted(() => {
 
 <style lang="scss">
 .materials {
+ 
 
     &-content {
         display: flex;
@@ -91,7 +93,7 @@ onMounted(() => {
     }
 
     &-btn {
-        margin-top: 50px;
+        margin-top: 50px; 
     }
 
     &-subtitle {

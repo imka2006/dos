@@ -9,40 +9,7 @@
                     <Btn @click="edit = !edit" style="padding: 15px 70px;" text="Сохранить" />
                 </div>
             </div>
-            <div v-if="edit" class="material-wrapper">
-                <ul v-if="item" class="material-list">
-                    <li class="material-item">
-                        <div class="material-pointer">Название</div>
-                        <div class="material-host">{{ item.title }}</div>
-                    </li>
-                    <div class="line"></div>
-                    <li class="material-item">
-                        <div class="material-pointer">Дата</div>
-                        <div class="material-host">{{ item?.year.replace(/-/g, ".").split(".").reverse().join(".") }}</div>
-                    </li>
-                    <div class="line"></div>
-                    <li class="material-item">
-                        <div class="material-pointer">Область</div>
-                        <div class="material-host"><span v-for="discipline in item.disciplines" :key="discipline">{{
-                            discipline.title }}</span></div>
-                    </li>
-                    <div class="line"></div>
-                    <li class="material-item">
-                        <div class="material-pointer">Автор</div>
-                        <div class="material-host-wrapper">
-                            <div class="material-host" v-for="item in 3" :key="item"> Автор {{ item }} </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="material-content">
-                    <div class="material-block-wrapper">
-                        <div class="material-block">PDF</div>
-                        <div class="material-block">PDF</div>
-                    </div>
-                    <div class="material-block max">YouTube</div>
-                </div>
-            </div>
-            <div v-else>
+            <div>
                 <h4 class="material-name">Название</h4>
                 <input type="text" class="material-input" placeholder="Введите" v-model="title">
                 <h4 class="material-name">Аннотация</h4>
@@ -51,7 +18,8 @@
 
                 <div class="material-checkbox-wrapper">
                     <div class="material-checkbox">
-                        <Checkbox  @childClick="handleChildClick" v-for="item in store.state.sciences" :key="item.title" :item="item.title" />
+                        <Checkbox @childClick="handleChildClick" v-for="item in store.state.sciences" :key="item.title"
+                            :item="item.title" />
                     </div>
                 </div>
                 <h4 class="material-name">Автор</h4>
@@ -64,13 +32,14 @@
                 <input type="text" class="material-input" placeholder="Ссылка" v-model="youtube">
                 <div class="material-more">
                     <Plus />
-                    Добавить PDF файл
-                </div> 
-                <button class="material-btn">Создать материал</button>
+                    <input type="file" ref="fileInput" @change="handleFileChange">
+                </div>
+                <button @click="postFetch()" class="material-btn">Создать материал</button>
             </div>
         </div>
     </section>
 </template>
+
 
 <script setup>
 import { onMounted, ref } from 'vue';
@@ -88,31 +57,60 @@ const route = useRoute()
 const title = ref("")
 const textArea = ref("")
 const author = ref("")
-const youtube = ref("")
-const profession = ref([])
+const youtube = ref("") 
+const profession = ref([]) 
+const fileInput = ref(null);
 
-const getData = async () => {
-    const res = await fetch("http://89.208.106.189/api/v1/material/detail/" + route.params.id);
-    const data = await res.json();
-    item.value = data
-}
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, '0');
+const day = String(today.getDate()).padStart(2, '0'); 
+
+const formattedDate = `${year}-${month}-${day}`;
+
+const handleFileChange = () => {
+  const selectedFile = fileInput.value.files[0];
+  if (selectedFile) {
+    fileInput.value = selectedFile
+  }
+};
+
 const handleChildClick = (item, isActive) => {
     if (isActive) {
         profession.value.push(item)
     } else {
-        const data  = profession.value.filter(inner => inner !== item)
+        const data = profession.value.filter(inner => inner !== item)
         profession.value = data
     }
     console.log(profession.value);
 };
 
+const postFetch = async () => {
+    const data = {
+        title: title.value,
+        year: formattedDate,
+        description: textArea.value,
+        youtube: youtube.value,
+        disciplines: ['1'],
+        authors: ['1'],
+        pdf: fileInput.value,
+    }
+    const res = await fetch("http://89.208.106.189/api/v1/material/create", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Bearer ${JSON.parse(localStorage.getItem("access_token"))}` },
+        body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    console.log(result);
+}
+
 onMounted(() => {
-    getData()
     store.dispatch("getSciences")
 })
 
-</script>
 
+
+</script> 
 <style lang="scss">
 .material {
     margin-bottom: 95px;
