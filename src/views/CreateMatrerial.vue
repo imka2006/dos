@@ -60,6 +60,7 @@ const author = ref("")
 const youtube = ref("") 
 const profession = ref([]) 
 const fileInput = ref(null);
+let selectedFile = null;
 
 const today = new Date();
 const year = today.getFullYear();
@@ -69,10 +70,7 @@ const day = String(today.getDate()).padStart(2, '0');
 const formattedDate = `${year}-${month}-${day}`;
 
 const handleFileChange = () => {
-  const selectedFile = fileInput.value.files[0];
-  if (selectedFile) {
-    fileInput.value = selectedFile
-  }
+    selectedFile = fileInput.value.files[0];
 };
 
 const handleChildClick = (item, isActive) => {
@@ -82,34 +80,41 @@ const handleChildClick = (item, isActive) => {
         const data = profession.value.filter(inner => inner !== item)
         profession.value = data
     }
-    console.log(profession.value);
 };
 
 const postFetch = async () => {
-    const data = {
-        title: title.value,
-        year: formattedDate,
-        description: textArea.value,
-        youtube: youtube.value,
-        disciplines: ['1'],
-        authors: ['1'],
-        pdf: fileInput.value,
-    }
-    const res = await fetch("http://89.208.106.189/api/v1/material/create", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Bearer ${JSON.parse(localStorage.getItem("access_token"))}` },
-        body: JSON.stringify(data)
+  const data = new FormData();
+  data.append('title', title.value);
+  data.append('year', formattedDate);
+  data.append('description', textArea.value);
+  data.append('youtube', youtube.value);
+  data.append('disciplines', '1');
+  data.append('authors', '1');
+  data.append('pdf', selectedFile);
+
+  try {
+    const response = await fetch('http://89.208.106.189/api/v1/material/create', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('access_token'))}`,
+      },
+      body: data,
     });
-    const result = await res.json();
-    console.log(result);
-}
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const result = await response.json();
+    console.log('File uploaded successfully:', result);
+  } catch (error) {
+    console.error('Error uploading file:', error);
+  }
+};
 
 onMounted(() => {
     store.dispatch("getSciences")
 })
-
-
-
 </script> 
 <style lang="scss">
 .material {

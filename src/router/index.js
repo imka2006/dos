@@ -17,17 +17,17 @@ const router = createRouter({
             path: "/signin",
             name: "signin",
             component: () => import("../views/SignIn.vue"),
-        }, 
+        },
         {
             path: "/materials",
             name: "materials",
             component: () => import("../views/Materials.vue"),
-        }, 
+        },
         {
             path: "/projects",
             name: "projects",
             component: () => import("../views/Projects.vue"),
-        }, 
+        },
         {
             path: "/material/:id",
             name: "materials-own",
@@ -37,17 +37,17 @@ const router = createRouter({
             path: "/create-project",
             name: "create-project",
             component: () => import("../views/CreateProject.vue"),
-        }, 
+        },
         {
             path: "/create-matrerial",
             name: "create-matrerial",
             component: () => import("../views/CreateMatrerial.vue"),
-        }, 
+        },
         {
             path: "/community",
             name: "community",
             component: () => import("../views/Community.vue"),
-        }, 
+        },
     ],
 });
 
