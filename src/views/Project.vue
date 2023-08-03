@@ -3,8 +3,8 @@
     <div class="container">
       <div class="df-aic-jcsb">
         <h2 class="title">Проект</h2>
-        <Btn v-if="isActive" @click="$router.push('/projects')" style="padding: 15px 70px;" text="Назад"
-          class="btn-first" /> 
+        <Btn v-if="isActive" @click="$router.back()" style="padding: 15px 70px;" text="Назад"
+          class="btn-first" />
       </div>
       <div v-if="edit" class="prolect-material-wrapper">
         <ul class="prolect-material-list">
@@ -38,6 +38,11 @@
               <div class="prolect-material-host" v-for="item in 2" :key="item"> Phd</div>
             </div>
           </li>
+          <li class="prolect-material-item">
+            <Btn style="margin-top: 30px;" @click="$router.push('/create-project')" text="Содать материал" />
+          </li>
+
+
 
         </ul>
         <p class="prolect-material-content_text">
@@ -48,7 +53,7 @@
           социально-экономических и социально-психологических основ персонального менеджмента.
         </p>
       </div>
- 
+
       <template v-if="edit">
         <h4 class="home-name blue">Участие в проектах</h4>
         <div class="line"></div>
@@ -71,14 +76,13 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import Btn from '../components/btns/Btn.vue'; 
-import { useStore } from 'vuex';
+import Btn from '../components/btns/Btn.vue';
+import { useStore } from 'vuex'; 
 const edit = ref(true)
 const isActive = ref(true)
 const store = useStore()
 const textArea = ref("")
-const title = ref("")
-const author = ref("")
+const title = ref("") 
 const region = ref([])
 const disciplines = ref([])
 
@@ -87,7 +91,7 @@ const year = today.getFullYear();
 const month = String(today.getMonth() + 1).padStart(2, '0'); // Добавляем ведущий ноль, если месяц состоит из одной цифры
 const day = String(today.getDate()).padStart(2, '0'); // Добавляем ведущий ноль, если день состоит из одной цифры
 
-const formattedDate = `${year}-${month}-${day}`;  
+const formattedDate = `${year}-${month}-${day}`;
 
 const handleChildClick = (item, isActive) => {
   if (isActive) {
@@ -120,7 +124,7 @@ const postFetch = async () => {
   }
   const res = await fetch("http://89.208.106.189/api/v1/project/create", {
     method: "POST",
-    headers: {'Content-Type': 'application/json;charset=utf-8', Authorization: `Bearer ${JSON.parse(localStorage.getItem("access_token"))}`},
+    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Bearer ${JSON.parse(localStorage.getItem("access_token"))}` },
     body: JSON.stringify(data)
   });
   const result = await res.json();
@@ -350,6 +354,7 @@ textarea {
     &-btns {
       display: none;
     }
+
     .btn-first {
       display: none;
     }

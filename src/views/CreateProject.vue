@@ -7,50 +7,7 @@
           class="btn-first" />
         <Btn v-else @click="edit = !edit" style="padding: 15px 70px;" text="Покинуть проект" />
       </div>
-      <div v-if="edit" class="prolect-material-wrapper">
-        <ul class="prolect-material-list">
-          <Btn v-if="isActive" @click="edit = !edit" style="padding: 15px 70px;" text="Присоединиться"
-            class="btn-second" />
-          <li class="prolect-material-item">
-            <div class="prolect-material-pointer">Название</div>
-            <div class="prolect-material-host">Проект</div>
-          </li>
-          <div class="line"></div>
-          <li class="prolect-material-item">
-            <div class="prolect-material-pointer">Дата</div>
-            <div class="prolect-material-host">13.07.2023</div>
-          </li>
-          <div class="line"></div>
-          <li class="prolect-material-item">
-            <div class="prolect-material-pointer">Область</div>
-            <div class="prolect-material-host">Математика, физика</div>
-          </li>
-          <div class="line"></div>
-          <li class="prolect-material-item">
-            <div class="prolect-material-pointer">Автор</div>
-            <div class="prolect-material-host-wrapper">
-              <div class="prolect-material-host" v-for="item in 3" :key="item"> Автор {{ item }} </div>
-            </div>
-          </li>
-          <div class="line"></div>
-          <li class="prolect-material-item">
-            <div class="prolect-material-pointer">Инжиниринг</div>
-            <div class="prolect-material-host-wrapper">
-              <div class="prolect-material-host" v-for="item in 2" :key="item"> Phd</div>
-            </div>
-          </li>
-
-        </ul>
-        <p class="prolect-material-content_text">
-          В статье предлагается общий обзор истории управленческой и экономической мысли России в конце XIX — начале XX
-          века в контексте основных проблем развития персонального менеджмента, социокультурных аспектов управления
-          человеческими ресурсами и менеджмента качества. Особое внимание уделяется характеристике бережливости в
-          интерпретации известного российского учёного И.И. Янжула с точки зрения анализа социокультурных,
-          социально-экономических и социально-психологических основ персонального менеджмента.
-        </p>
-      </div>
-
-      <div v-else>
+     
         <h4 class="prolect-material-name">Название</h4>
         <input type="text" class="prolect-material-input" placeholder="Введите" v-model="title">
         <h4 class="prolect-material-name">Аннотация</h4>
@@ -75,24 +32,7 @@
             :item="item.title_ru" />
         </div>
         <button @click="postFetch" class="prolect-material-btn">Создать материал</button>
-      </div>
-      <template v-if="edit">
-        <h4 class="home-name blue">Участие в проектах</h4>
-        <div class="line"></div>
-        <div class="df-aic-jcsb home-bottom-wrapper">
-          <div v-for="item in 3" :key="item" class="home-block mini">
-            <h4 class="home-name">Дифференциальные уравнения</h4>
-            <span class="home-author">Авторы</span>
-            <div class="line"></div>
-            <ul class="home-list">
-              <li v-for="item in 3" :key="item" class="home-item">
-                Автор {{ item }}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </template>
-    </div>
+      </div>  
   </section>
 </template>
 
@@ -103,7 +43,7 @@ import Checkbox from '../components/checks/Checkbox.vue';
 import CheckboxSec from '../components/checks/CheckboxSec.vue';
 import Plus from '../assets/icons/global/Plus.vue';
 import { useStore } from 'vuex';
-const edit = ref(true)
+const edit = ref(false)
 const isActive = ref(true)
 const store = useStore()
 const textArea = ref("")
