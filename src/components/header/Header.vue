@@ -9,8 +9,8 @@
                 <li class="header-item">
                     <router-link :to="store.state.userInfo ? '/cabinet' : '/signin'">Личный кабинет</router-link>
                 </li>
-                <li class="header-item">
-                    <span v-if="store.state.userInfo" @click="handleLogout">Выйти из аккаунта</span>
+                <li v-if="store.state.userInfo" class="header-item">
+                    <span @click="handleLogout">Выйти из аккаунта</span>
                 </li>
                 <li class="header-item another" :class="{ active: isActive }">
                     <div @click="isActive = !isActive" class="header-content">
@@ -51,6 +51,7 @@ const router = useRouter()
 const handleLogout = () => {
     localStorage.clear();
     userActive.value = localStorage.getItem('user_info')
+    store.commit("setUserInfo", false)
     router.push("/signin")
 }
 </script>
