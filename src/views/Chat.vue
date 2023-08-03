@@ -45,7 +45,7 @@
                 </div>
                 <div v-else class="chat-right">
                     <div class="chat-head">
-                        <h3 class="chat-title">{{ name }}</h3>
+                       <h3 class="chat-title">{{ name }}</h3>
                         <div class="chat-last-online">был(а) в {{ online }}</div>
                     </div>
                     <div class="chat-content">
