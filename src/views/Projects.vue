@@ -19,7 +19,7 @@
                         <div class="projects-subtitle">{{item.title}}</div>
                         <div class="line"></div>
                         <div v-for="el in user" class="projects-item" :key="el.first_name" >id автора: {{ el.first_name }}</div> 
-                        <router-link :to="`/project/` + item.id" class="materials-item" style="text-decoration: underline;">Подробнее</router-link>
+                        <router-link :to="`/project/` + item.id"  class="materials-item" style="text-decoration: underline;">Подробнее</router-link>
                     </div> 
                 </div>
             </div>
@@ -33,13 +33,13 @@ import { useStore } from "vuex";
 import Checkbox from "../components/checks/Checkbox.vue";
 import Btn from "../components/btns/Btn.vue";
 import Dropdown from "../components/Dropdown.vue"; 
+import { useRouter } from "vue-router";
 
 const store = useStore()
 const items = ref([])
 const user = ref(null)
+const router = useRouter()
 const userInfo = JSON.parse(localStorage.getItem("user_info"))
-
-
 
 const getData = async () => {
     const res = await fetch("http://89.208.106.189/api/v1/project/list");

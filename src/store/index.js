@@ -47,7 +47,8 @@ export default createStore({
         language: "ru", 
         sciences: [],
         cities: [],
-        userInfo: JSON.parse(localStorage.getItem('user_info'))
+        userInfo: JSON.parse(localStorage.getItem('user_info')),
+        id:null,
     },
     getters: {},
     mutations: {

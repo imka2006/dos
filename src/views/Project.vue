@@ -3,8 +3,7 @@
     <div class="container">
       <div class="df-aic-jcsb">
         <h2 class="title">Проект</h2>
-        <Btn v-if="isActive" @click="$router.back()" style="padding: 15px 70px;" text="Назад"
-          class="btn-first" />
+        <Btn v-if="isActive" @click="$router.back()" style="padding: 15px 70px;" text="Назад" class="btn-first" />
       </div>
       <div v-if="edit" class="prolect-material-wrapper">
         <ul class="prolect-material-list">
@@ -39,7 +38,8 @@
             </div>
           </li>
           <li class="prolect-material-item">
-            <Btn style="margin-top: 30px;" @click="$router.push('/create-project')" text="Содать материал" />
+            <Btn style="margin-top: 30px;" @click="$router.push(`/matrerial-create/` + $route.params.id)"
+              text="Содать материал" />
           </li>
 
 
@@ -78,11 +78,12 @@
 import { onMounted, ref } from 'vue';
 import Btn from '../components/btns/Btn.vue';
 import { useStore } from 'vuex'; 
-const edit = ref(true)
-const isActive = ref(true)
 const store = useStore()
+const edit = ref(true)
+const isActive = ref(true) 
+
 const textArea = ref("")
-const title = ref("") 
+const title = ref("")
 const region = ref([])
 const disciplines = ref([])
 

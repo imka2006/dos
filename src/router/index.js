@@ -42,11 +42,16 @@ const router = createRouter({
             path: "/create-project",
             name: "create-project",
             component: () => import("../views/CreateProject.vue"),
-        },
+        }, 
         {
             path: "/create-matrerial",
             name: "create-matrerial",
             component: () => import("../views/CreateMatrerial.vue"),
+        },
+        {
+            path: "/matrerial-create/:id",
+            name: "matrerial-create",
+            component: () => import("../views/MatrerialCreate.vue"),
         },
         {
             path: "/community",
