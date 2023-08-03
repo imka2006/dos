@@ -103,7 +103,7 @@ import Checkbox from '../components/checks/Checkbox.vue';
 import CheckboxSec from '../components/checks/CheckboxSec.vue';
 import Plus from '../assets/icons/global/Plus.vue';
 import { useStore } from 'vuex';
-const edit = ref(false)
+const edit = ref(true)
 const isActive = ref(true)
 const store = useStore()
 const textArea = ref("")

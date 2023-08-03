@@ -4,8 +4,7 @@
       <div class="df-aic-jcsb">
         <h2 class="title">Проект</h2>
         <Btn v-if="isActive" @click="$router.push('/projects')" style="padding: 15px 70px;" text="Назад"
-          class="btn-first" />
-        <Btn v-else @click="edit = !edit" style="padding: 15px 70px;" text="Покинуть проект" />
+          class="btn-first" /> 
       </div>
       <div v-if="edit" class="prolect-material-wrapper">
         <ul class="prolect-material-list">
@@ -49,33 +48,7 @@
           социально-экономических и социально-психологических основ персонального менеджмента.
         </p>
       </div>
-
-      <div v-else>
-        <h4 class="prolect-material-name">Название</h4>
-        <input type="text" class="prolect-material-input" placeholder="Введите" v-model="title">
-        <h4 class="prolect-material-name">Аннотация</h4>
-        <textarea class="prolect-material-input" placeholder="Введите" v-model="textArea"></textarea>
-        <h4 class="prolect-material-name">Область</h4>
-
-        <div class="prolect-material-checkbox-wrapper">
-          <div class="prolect-material-checkbox">
-            <CheckboxSec @childClickSec="handleChildClickSec" v-for="item in store.state.sciences" :key="item.title_ru"
-              :item="item.title_ru" />
-          </div>
-        </div>
-        <h4 class="prolect-material-name">Автор</h4>
-        <input type="text" class="prolect-material-input" placeholder="Введите" v-model="author">
-        <div class="prolect-material-more">
-          <Plus />
-          Добавить автора
-        </div>
-        <h4 class="prolect-material-name">Дисциплины</h4>
-        <div class="prolect-material-checkbox">
-          <Checkbox @childClick="handleChildClick" v-for="item in store.state.sciences" :key="item.title_ru"
-            :item="item.title_ru" />
-        </div>
-        <button @click="postFetch" class="prolect-material-btn">Создать материал</button>
-      </div>
+ 
       <template v-if="edit">
         <h4 class="home-name blue">Участие в проектах</h4>
         <div class="line"></div>
@@ -98,12 +71,9 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import Btn from '../components/btns/Btn.vue';
-import Checkbox from '../components/checks/Checkbox.vue';
-import CheckboxSec from '../components/checks/CheckboxSec.vue';
-import Plus from '../assets/icons/global/Plus.vue';
+import Btn from '../components/btns/Btn.vue'; 
 import { useStore } from 'vuex';
-const edit = ref(false)
+const edit = ref(true)
 const isActive = ref(true)
 const store = useStore()
 const textArea = ref("")
@@ -378,6 +348,9 @@ textarea {
 
   @media screen and (max-width:650px) {
     &-btns {
+      display: none;
+    }
+    .btn-first {
       display: none;
     }
 

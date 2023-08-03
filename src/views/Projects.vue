@@ -19,6 +19,7 @@
                         <div class="projects-subtitle">{{item.title}}</div>
                         <div class="line"></div>
                         <div v-for="el in user" class="projects-item" :key="el.first_name" >id автора: {{ el.first_name }}</div> 
+                        <router-link :to="`/project/` + item.id" class="materials-item" style="text-decoration: underline;">Подробнее</router-link>
                     </div> 
                 </div>
             </div>
