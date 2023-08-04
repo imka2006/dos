@@ -13,12 +13,7 @@ export default createStore({
                 id: 3,
                 name: "Materials",
                 link: "/materials",
-            },
-            {
-                id: 3,
-                name: "Chat",
-                link: "/chat",
-            },
+            }, 
             {
                 id: 4,
                 name: "Community",
@@ -35,12 +30,7 @@ export default createStore({
                 id: 0,
                 name: "Проекты",
                 link: "/projects",
-            },
-            {
-                id: 0,
-                name: "Чат",
-                link: "/chat",
-            },
+            }, 
             {
                 id: 3,
                 name: "Материалы",

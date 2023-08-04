@@ -13,6 +13,10 @@
                 <li v-for="item in store.state.listRu" :key="item.id" class="burger-item">
                     <router-link :to="item.link">{{ item.name }}</router-link>
                 </li>
+                
+                <li v-if="store.state.userInfo" class="burger-item">
+                    <router-link to="/chat">Чат</router-link>
+                </li>
             </ul>
         </div>
         <div v-show="store.state.burger" @click="store.state.burger = !store.state.burger" class="burger-close"></div>
