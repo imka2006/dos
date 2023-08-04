@@ -314,6 +314,7 @@ const contactList = ref([
             cursor: pointer;
             top: 50%;
             transform: translate(0, -50%);
+            display: none;
         }
     }
 
@@ -455,6 +456,11 @@ const contactList = ref([
             gap: 0;
         }
 
+        &-head {
+            span {
+                display: block;
+            }
+        }
 
     }
 }

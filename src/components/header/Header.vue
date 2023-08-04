@@ -5,6 +5,10 @@
                 <Burger />
                 <li v-for="item in store.state.listRu" :key="item.id" class="header-item" >
                     <router-link :to="item.link">{{ item.name }}</router-link>
+                    
+                </li>
+                <li v-if="store.state.userInfo" class="header-item">
+                    <router-link to="/chat">Чат</router-link>
                 </li>
                 <li class="header-item">
                     <router-link :to="store.state.userInfo ? '/cabinet' : '/signin'">Личный кабинет</router-link>
@@ -13,7 +17,7 @@
                     <span @click="handleLogout">Выйти из аккаунта</span>
                 </li>
                 <li class="header-item another" :class="{ active: isActive }">
-                    <div @click="isActive = !isActive" class="header-content">
+                    <div @click="isActive = !isActive" class="header-content"> 
                         {{ activeItem.toUpperCase() }}
                         <Arrow class="header-arrow" :class="{ active: isActive }" />
                     </div>
