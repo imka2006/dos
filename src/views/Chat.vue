@@ -3,7 +3,7 @@
         <div class="chat-wrapper another"></div>
         <div class="container">
             <div class="chat-wrapper">
-                <div class="chat-left">
+                <div class="chat-left" :class="{ active: isActive }">
                     <label class="chat-label">
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -14,8 +14,8 @@
                         </svg>
                         <input type="text" placeholder="Поиск">
                     </label>
-                    <div v-for="item in messageList" :key="item.id" @click="online = item.lastMessage; name = item.name"
-                        class="chat-block">
+                    <div v-for="item in contactList" :key="item.id"
+                        @click="online = item.lastMessage; name = item.name; isActive = !isActive" class="chat-block">
                         <div class="chat-block-left">
                             <div class="chat-ava-wrapper">
                                 <svg width="50" height="51" viewBox="0 0 50 51" fill="none"
@@ -43,30 +43,19 @@
                 <div v-if="online == '' || name == ''" class="chat-right unActive">
                     <div class="chat-none-active">Выберите чат!</div>
                 </div>
-                <div v-else class="chat-right">
+                <div v-else class="chat-right" :class="{ active: !isActive }">
                     <div class="chat-head">
-                       <h3 class="chat-title">{{ name }}</h3>
+                        <span @click="isActive = !isActive">Назад</span>
+                        <h3 class="chat-title">{{ name }}</h3>
                         <div class="chat-last-online">был(а) в {{ online }}</div>
                     </div>
                     <div class="chat-content">
-                        <div class="chat-item">
-                            Здравствуйте!
+                        <div v-for="item in messageList" :key="item.id" class="chat-item" :class="{my: item.userId == user.id}">
+                            {{ item.text }}
                             <div class="chat-item-time">
-                                11:31 AM
+                                {{item.time}}
                             </div>
-                        </div>
-                        <div class="chat-item my">
-                            Здравствуйте!
-                            <div class="chat-item-time">
-                                11:31 AM
-                            </div>
-                        </div>
-                        <div class="chat-item my">
-                            Можно узнать подробную информацию?
-                            <div class="chat-item-time">
-                                11:31 AM
-                            </div>
-                        </div>
+                        </div> 
                     </div>
                     <label class="chat-label">
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,11 +94,65 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from 'vue';
+
+const currentTime = ref('');
+const time = ref("")
+
+function updateCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  currentTime.value = `${hours}:${minutes}`;
+  time.value = currentTime.value
+}
+
+
+onMounted(() => {
+  updateCurrentTime();
+  setInterval(updateCurrentTime, 1000); 
+});
+ 
+
 const online = ref("")
 const name = ref("")
+const isActive = ref(true)
+const user = JSON.parse(localStorage.getItem("user_info")) 
+
+const timeString = time.value;
+const formattedTime = formatTime(timeString); 
+function formatTime(timeString) {
+    const [time, meridiem] = timeString.split(' ');
+    const [hours, minutes] = time.split(':');
+
+    let formattedHours = parseInt(hours, 10);
+    if (meridiem === 'PM') {
+        formattedHours += 12;
+    }
+
+    return `${formattedHours.toString().padStart(2, '0')}:${minutes} ${meridiem}`;
+}
+
+
+
+
 
 const messageList = ref([
+    {
+        id: 0,
+        userId: 1,
+        text: "Привет, как дела?",
+        time: formatTime('16:40 AM'),
+    },
+    {
+        id: 1,
+        userId: 4,
+        text: "Привет! Всё хорошо, а у тебя?",
+        time: formatTime('17:30 PM'),
+    },
+])
+
+const contactList = ref([
     {
         id: 0,
         name: "Команда Fly (Team Fly)",
@@ -181,7 +224,7 @@ const messageList = ref([
 .chat {
     padding-top: 10px;
     padding-bottom: 10px;
-    background: white;  
+    background: white;
 
     &-wrapper.another {
         width: 100vw;
@@ -197,16 +240,16 @@ const messageList = ref([
 
     &-item {
         display: flex;
-        padding: 8px 76px 15px 8px;
+        padding: 8px 30px 30px 8px;
         border-radius: 0px 6px 6px 6px;
         background: #F2F2F7;
-        width: max-content;
         margin-top: 15px;
         margin-left: 15px;
         color: #222324;
         font-size: 18px;
         font-weight: 400;
         position: relative;
+        max-width: max-content;
 
         .chat-item-time {
             color: #222324;
@@ -237,6 +280,7 @@ const messageList = ref([
         right: 10px;
         bottom: 4px;
     }
+
     &-another {
         width: 100%;
     }
@@ -262,6 +306,15 @@ const messageList = ref([
         align-items: center;
         padding: 12px 0;
         gap: 4px;
+        position: relative;
+
+        span {
+            position: absolute;
+            left: 0px;
+            cursor: pointer;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
     }
 
     &-last-online {
@@ -372,6 +425,36 @@ const messageList = ref([
         justify-content: center;
         border-radius: 50%;
         margin-top: 14px;
+
+    }
+
+    @media screen and (max-width:750px) {
+        &-right {
+            width: 0;
+            overflow: hidden;
+
+            &.active {
+                width: 100%;
+            }
+        }
+
+        &-left {
+            max-width: 0;
+            padding: 0;
+            overflow: hidden;
+
+            &.active {
+                max-width: unset;
+                width: 100%;
+                overflow: auto;
+                padding-right: 20px;
+            }
+        }
+
+        &-wrapper {
+            gap: 0;
+        }
+
 
     }
 }

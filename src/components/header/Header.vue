@@ -72,6 +72,7 @@ const handleLogout = () => {
         font-weight: 700;
         letter-spacing: 0em;
         color: rgba(1, 14, 82, 1);
+        cursor: pointer;
 
         &.another {
             border: 1px solid rgba(1, 14, 82, 1);
@@ -109,6 +110,7 @@ const handleLogout = () => {
         display: flex;
         flex-direction: column;
         gap: 4px;
+        background: white;
     }
 
     &-langs {
