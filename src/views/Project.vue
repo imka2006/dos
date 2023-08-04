@@ -129,9 +129,12 @@ const postFetch = async () => {
     body: JSON.stringify(data)
   });
   const result = await res.json();
-  console.log(result);
 }
 
+// const getData = async () => {
+//   const res = await fetch("");
+//   const data = await res.json();
+// }
 
 onMounted(() => {
   store.dispatch("getSciences")

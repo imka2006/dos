@@ -13,19 +13,18 @@
         <h4 class="prolect-material-name">Аннотация</h4>
         <textarea class="prolect-material-input" placeholder="Введите" v-model="textArea"></textarea>
         <h4 class="prolect-material-name">Область</h4>
-
         <div class="prolect-material-checkbox-wrapper">
           <div class="prolect-material-checkbox">
             <CheckboxSec @childClickSec="handleChildClickSec" v-for="item in store.state.sciences" :key="item.title_ru"
               :item="item.title_ru" />
           </div>
         </div>
-        <h4 class="prolect-material-name">Автор</h4>
+        <!-- <h4 class="prolect-material-name">Автор</h4>
         <input type="text" class="prolect-material-input" placeholder="Введите" v-model="author">
         <div class="prolect-material-more">
           <Plus />
           Добавить автора
-        </div>
+        </div> -->
         <h4 class="prolect-material-name">Дисциплины</h4>
         <div class="prolect-material-checkbox">
           <Checkbox @childClick="handleChildClick" v-for="item in store.state.sciences" :key="item.title_ru"
@@ -77,17 +76,17 @@ const handleChildClickSec = (item, isActive) => {
   }
 };
 
-
 const postFetch = async () => {
   const data = {
     description: textArea.value,
     title: title.value,
-    members: ["1"],
+    members: [store.state.userInfo.id],
     region: region.value,
     disciplines: ['1'],
     science: disciplines.value.length,
     year: formattedDate,
   }
+
   const res = await fetch("http://89.208.106.189/api/v1/project/create", {
     method: "POST",
     headers: {'Content-Type': 'application/json;charset=utf-8', Authorization: `Bearer ${JSON.parse(localStorage.getItem("access_token"))}`},

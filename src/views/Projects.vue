@@ -19,8 +19,8 @@
                         <div class="projects-subtitle">{{item.title}}</div>
                         <div class="line"></div>
                         <div v-for="el in item.members" class="projects-item" :key="el" >
-                            <p v-for="author in el" :key="author">
-                                Авторы: {{ author }}
+                            <p v-for="(author,i) in el" :key="i">
+                                Авторы: <router-link :to="'/another-cabinet/' + author.id">{{ author.name }}</router-link>
                             </p>
                         </div>
                         <router-link :to="`/project/` + item.id"  class="materials-item" style="text-decoration: underline;">Подробнее</router-link>
@@ -46,7 +46,7 @@ const router = useRouter()
 const userInfo = JSON.parse(localStorage.getItem("user_info"))
 
 const getData = async () => {
-    const res = await fetch("http://89.208.106.189/api/v1/project/list");
+    const res = await fetch("http://89.208.106.189/api/v1/project/list?limit=100");
     const { results } = await res.json();
 
     for (let i = 0; i < results.length; i++) {
@@ -58,7 +58,10 @@ const getData = async () => {
             const names = []
 
             for (let k = 0; k < data.results.length; k++) {
-                names.push(data.results[k].last_name + " " + data.results[k].first_name)
+                names.push({
+                    name: data.results[k].last_name + " " + data.results[k].first_name,
+                    id: data.results[k].id
+                })
             }
 
             results[i].members[j] = names
