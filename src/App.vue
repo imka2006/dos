@@ -4,7 +4,15 @@
 </template>
 
 <script setup>
-import Header from './components/header/Header.vue'; 
+import Header from './components/header/Header.vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const router = useRouter()
+const route = useRoute()
+
+if (route.path === '/' || JSON.parse(localStorage.getItem("user_info"))) {
+  router.push('/projects');
+}
 </script>
 
 <style lang="scss">

@@ -63,6 +63,11 @@ const router = createRouter({
             name: "chat",
             component: () => import("../views/Chat.vue"),
         },
+        {
+            path: "/another-cabinet/:id",
+            name: "another-cabinet",
+            component: () => import("../views/AnotherCabinet.vue"),
+        },
     ],
 });
 

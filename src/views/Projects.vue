@@ -18,7 +18,11 @@
                     <div v-for="item in items" :key="item.id" class="projects-block">
                         <div class="projects-subtitle">{{item.title}}</div>
                         <div class="line"></div>
-                        <div v-for="el in user" class="projects-item" :key="el.first_name" >id автора: {{ el.first_name }}</div> 
+                        <div v-for="el in item.members" class="projects-item" :key="el" >
+                            <p v-for="author in el" :key="author">
+                                Авторы: {{ author }}
+                            </p>
+                        </div>
                         <router-link :to="`/project/` + item.id"  class="materials-item" style="text-decoration: underline;">Подробнее</router-link>
                     </div> 
                 </div>
@@ -37,26 +41,36 @@ import { useRouter } from "vue-router";
 
 const store = useStore()
 const items = ref([])
-const user = ref(null)
+const user = ref([])
 const router = useRouter()
 const userInfo = JSON.parse(localStorage.getItem("user_info"))
 
 const getData = async () => {
     const res = await fetch("http://89.208.106.189/api/v1/project/list");
-    const data = await res.json();
+    const { results } = await res.json();
 
-    items.value = data.results 
+    for (let i = 0; i < results.length; i++) {
+        for (let j = 0; j < results[i].members.length; j++) {
+            const id = results[i].members[j];
+
+            const getUserRes = await fetch("http://89.208.106.189/api/v1/authors/list?id=" + id);
+            const data = await getUserRes.json();
+            const names = []
+
+            for (let k = 0; k < data.results.length; k++) {
+                names.push(data.results[k].last_name + " " + data.results[k].first_name)
+            }
+
+            results[i].members[j] = names
+        }
+    }
+
+    items.value = results
 }
 
-const getuser = async () => {
-    const res = await fetch("http://89.208.106.189/api/v1/authors/list?id=" + userInfo.id);
-    const data = await res.json(); 
-    user.value = data.results; 
-}
 
 onMounted(() => {
     getData()
-    getuser()
 })
 
 </script>
