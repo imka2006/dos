@@ -2,7 +2,7 @@
     <section class="projects">
         <div class="container">
             <div class="df-aic-jcsb">
-                <h2 class="title">Проекты</h2> 
+                <h2 class="title">Проекты</h2>
             </div>
             <div class="projects-content">
                 <div class="projects-left">
@@ -14,7 +14,7 @@
                 <div class="projects-left another">
                     <Dropdown class="projects-dropdown" />
                 </div>
-                <div class="projects-right">
+                <div v-if="!isLoading" class="projects-right">
                     <div v-for="item in items" :key="item.id" class="projects-block">
                         <div class="projects-subtitle">{{item.title}}</div>
                         <div class="line"></div>
@@ -25,6 +25,9 @@
                         </div>
                         <router-link :to="`/project/` + item.id"  class="materials-item" style="text-decoration: underline;">Подробнее</router-link>
                     </div> 
+                </div>
+                <div v-else class="wrapper">
+                    <Spinner class="projects-spinner" />
                 </div>
             </div>
         </div>
@@ -37,6 +40,7 @@ import { useStore } from "vuex";
 import Checkbox from "../components/checks/Checkbox.vue";
 import Btn from "../components/btns/Btn.vue";
 import Dropdown from "../components/Dropdown.vue"; 
+import Spinner from "../components/Spinner.vue"; 
 import { useRouter } from "vue-router";
 
 const store = useStore()
@@ -44,8 +48,10 @@ const items = ref([])
 const user = ref([])
 const router = useRouter()
 const userInfo = JSON.parse(localStorage.getItem("user_info"))
+const isLoading = ref(false);
 
 const getData = async () => {
+    isLoading.value = true
     const res = await fetch("http://89.208.106.189/api/v1/project/list?limit=100");
     const { results } = await res.json();
 
@@ -68,6 +74,7 @@ const getData = async () => {
         }
     }
 
+    isLoading.value = false
     items.value = results
 }
 
@@ -80,6 +87,12 @@ onMounted(() => {
 
 <style lang="scss">
 .projects {
+
+    & .wrapper {
+        display: flex;
+        justify-content: center;
+        flex: 1;
+    }
 
     &-content {
         display: flex;

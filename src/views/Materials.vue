@@ -14,7 +14,7 @@
                 <div class="materials-left another">
                     <Dropdown class="materials-dropdown" />
                 </div>
-                <div class="materials-right">
+                <div v-if="!isLoading" class="materials-right">
                     <div v-for="item in items" :key="item.id" class="materials-block">
                         <div class="materials-subtitle">{{item.title}}</div>
                         <div class="line"></div>
@@ -23,7 +23,10 @@
                             <a :href="item.youtube" target="_blank" class="materials-item">YouTube</a>
                             <router-link :to="`/material/` + item.id" class="materials-item" style="text-decoration: underline;">Подробнее</router-link>
                         </div>
-                    </div> 
+                    </div>
+                </div>
+                <div v-else class="wrapper">
+                    <Spinner class="projects-spinner" />
                 </div>
             </div>
         </div>
@@ -37,16 +40,20 @@ import Checkbox from "../components/checks/Checkbox.vue";
 import Btn from "../components/btns/Btn.vue";
 import Dropdown from "../components/Dropdown.vue";
 import Edit from "../components/Edit.vue";
+import Spinner from "../components/Spinner.vue"; 
 
 const store = useStore()
+const isLoading = ref(false);
 
 const items = ref([]);
 
 const getData = async () => {
+    isLoading.value = true
     const res = await fetch("http://89.208.106.189/api/v1/material/list");
     const data = await res.json();
 
     items.value = data.results
+    isLoading.value = false
 }
 
 onMounted(() => {
@@ -57,7 +64,12 @@ onMounted(() => {
 
 <style lang="scss">
 .materials {
- 
+
+    & .wrapper {
+        display: flex;
+        justify-content: center;
+        flex: 1;
+    }
 
     &-content {
         display: flex;
