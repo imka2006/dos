@@ -2,14 +2,9 @@
     <section class="material">
         <div class="container">
             <div class="df-aic-jcsb">
-                <h2 class="title">Материал</h2>
-                <Edit v-if="edit" @click="edit = !edit" />
-                <div v-else class="material-btns">
-                    <Btn @click="edit = !edit" style="padding: 15px 70px;" :disabled="false" text="Отмена" />
-                    <Btn @click="edit = !edit" style="padding: 15px 70px;" text="Сохранить" />
-                </div>
+                <h2 class="title">Материал</h2> 
             </div>
-            <div v-if="edit" class="material-wrapper">
+            <div v-if="!edit" class="material-wrapper">
                 <ul v-if="item" class="material-list">
                     <li class="material-item">
                         <div class="material-pointer">Название</div>
@@ -33,7 +28,7 @@
                             <div class="material-host" v-for="item in 3" :key="item"> Автор {{ item }} </div>
                         </div>
                     </li>
-                </ul>
+                </ul> 
                 <div class="material-content">
                     <div class="material-block-wrapper">
                         <div class="material-block">PDF</div>

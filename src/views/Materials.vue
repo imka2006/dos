@@ -99,7 +99,7 @@ onMounted(() => {
 
     &-subtitle {
         color: #010E52;
-        font-size: 18px;
+        font-size: 18px; 
         font-weight: 700;
         margin-bottom: 25px;
     }

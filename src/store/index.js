@@ -47,6 +47,7 @@ export default createStore({
         language: "ru", 
         sciences: [],
         cities: [],
+        chatActive:null,
         userInfo: JSON.parse(localStorage.getItem('user_info')),
         id:null,
     },
@@ -63,7 +64,10 @@ export default createStore({
         },
         setCities(state, data) {
             state.cities = data
-        }
+        },
+        activeChat(state, data) {
+            console.log(data);
+        }   
     },
     actions: {
         getSciences: async (store) => {

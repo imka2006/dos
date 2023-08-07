@@ -4,9 +4,8 @@
     <div class="container">
       <div class="df-aic-jcsb">
         <h2 class="title">Персона</h2>
-        <div class="home-done">
-          <Edit @click="isedit = !isedit" />
-          <BtnMess class="home-btn" text="Отправить сообщение" @click="handleChat" />
+        <div class="home-done"> 
+          <router-link to="/chat"><BtnMess class="home-btn" text="Отправить сообщение" @click="handleChat" /></router-link>
         </div>
       </div>
       <div class="wrapper">
@@ -112,11 +111,13 @@ import Youtube from '../assets/icons/home/Youtube.vue'
 import { onMounted, ref } from 'vue'
 import Modal from '../components/Modal.vue'
 import { useStore } from 'vuex'
-import BtnMess from '../components/btns/BtnMess.vue'
-import Btn from '../components/btns/Btn.vue'
-import Edit from '../components/Edit.vue'
-import Check from '../components/checks/Checkbox.vue'
+import BtnMess from '../components/btns/BtnMess.vue' 
 import { useRoute } from 'vue-router'
+const num = ref(3)
+const store = useStore()
+const router = useRoute()
+const info = ref([]) 
+ 
 const check = [
   {
     id: 0,
@@ -134,9 +135,7 @@ const check = [
     link: '/',
   },
 ]
-const num = ref(3)
-const store = useStore()
-const route = useRoute()
+
 const user = ref({
   id: 2,
   first_name: '',
@@ -147,25 +146,26 @@ const user = ref({
 })
 
 const getData = async () => {
-  const res = await fetch('http://89.208.106.189/api/v1/author/' + route.params.id)
+  const res = await fetch('http://89.208.106.189/api/v1/author/1')
   const data = await res.json()
   console.log(data)
   user.value = data
 }
 
-const handleChat = async () => {
-    const res = await fetch('http://89.208.106.189/api/v1/find/chat/' + route.params.id, {
+const handleChat = async () => {  
+    const res = await fetch('http://89.208.106.189/api/v1/find/chat/' + router.params.id, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem('access_token'))}`,
       },
     });
-    const data = await res.json();
-    console.log(data);
-}
+    const data = await res.json(); 
+    store.commit('activeChat', data)
+     
+} 
 
 onMounted(() => {
-  getData()
+  // getData()
 })
 </script>
 

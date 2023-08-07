@@ -85,6 +85,7 @@ const handleChildClickSec = (item, isActive) => {
         region.value = data
     }
 };
+
 const handleFileChange = () => {
     selectedFile = fileInput.value.files[0]; 
 };

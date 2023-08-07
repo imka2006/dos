@@ -40,10 +40,8 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="online == '' || name == ''" class="chat-right unActive">
-                    <div class="chat-none-active">Выберите чат!</div>
-                </div>
-                <div v-else class="chat-right" :class="{ active: !isActive }">
+               
+                <div v-if="store.state.chatActive" class="chat-right" :class="{ active: !isActive }">
                     <div class="chat-head">
                         <span @click="isActive = !isActive">Назад</span>
                         <h3 class="chat-title">{{ name }}</h3>
@@ -88,6 +86,9 @@
 
                     </label>
                 </div>
+                <div v-else class="chat-right unActive">
+                    <div class="chat-none-active">Выберите чат!</div>
+                </div>
             </div>
         </div>
     </section>
@@ -95,10 +96,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-
+import { useStore } from 'vuex';
 const currentTime = ref('');
 const time = ref("")
-
+const store  = useStore()
+console.log(store.state.chatActive);
 function updateCurrentTime() {
   const now = new Date();
   const hours = now.getHours().toString().padStart(2, '0');
