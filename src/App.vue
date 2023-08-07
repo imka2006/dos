@@ -11,7 +11,7 @@ const router = useRouter()
 const route = useRoute()
 
 if (route.path === '/' || JSON.parse(localStorage.getItem("user_info"))) {
-  router.push('/another-cabinet/6');
+  router.push('/another-cabinet/3');
 }
 </script>
 

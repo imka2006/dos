@@ -50,32 +50,29 @@
             <h4 class="home-name blue">Дополнительные данные</h4>
             <div class="home-more">
               <span class="home-pointer">Номер телефона</span>
-              <div class="home-host another">+7 (999) 899-09-86</div>
+              <div class="home-host another">+996 {{ user.person?.phone }}</div>
             </div>
             <div class="line"></div>
             <div class="home-more">
               <span class="home-pointer">Email</span>
-              <div v-if="user.person" class="home-host another">{{ user.person.email }}</div>
+              <div v-if="user.person" class="home-host another">{{ user.person?.email }}</div>
             </div>
             <div class="line"></div>
             <div class="home-more">
               <span class="home-pointer">Сайт</span>
-              <div class="home-host another">www.zemlyansky900.org</div>
+              <div class="home-host another">{{ user.person?.email }}</div>
             </div>
             <div class="line"></div>
             <div class="home-more">
               <span class="home-pointer">Социальные сети</span>
-              <div v-if="user.person" class="home-host another cocial">
-                <a href="#" target="_blank">
-                  <In />
-                </a>
-                <a v-if="user.person.twitter" href="#" target="_blank">
+              <div v-if="user.person" class="home-host another cocial"> 
+                <a v-if="user.person.twitter" :href="user.person.twitter" target="_blank">
                   <Twiter />
                 </a>
-                <a v-if="user.person.facebook" href="#" target="_blank">
+                <a v-if="user.person.facebook" :href="user.person.facebook" target="_blank">
                   <Facebook />
                 </a>
-                <a v-if="user.person.youtube" href="#" target="_blank">
+                <a v-if="user.person.youtube" :href="user.person.youtube" target="_blank">
                   <Youtube />
                 </a>
               </div>
@@ -146,9 +143,9 @@ const user = ref({
 })
 
 const getData = async () => {
-  const res = await fetch('http://89.208.106.189/api/v1/author/1')
+  const res = await fetch('http://89.208.106.189/api/v1/author/' + router.params.id)
   const data = await res.json()
-  console.log(data)
+  store.state.chatUser = data
   user.value = data
 }
 
@@ -165,7 +162,7 @@ const handleChat = async () => {
 } 
 
 onMounted(() => {
-  // getData()
+  getData()
 })
 </script>
 

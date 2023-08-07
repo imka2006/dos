@@ -7,7 +7,7 @@ export default createStore({
             {
                 id: 0,
                 name: "Projects",
-                link: "/projects",
+                link: "/",
             },
             {
                 id: 3,
@@ -29,7 +29,7 @@ export default createStore({
             {
                 id: 0,
                 name: "Проекты",
-                link: "/projects",
+                link: "/",
             }, 
             {
                 id: 3,
@@ -48,6 +48,7 @@ export default createStore({
         sciences: [],
         cities: [],
         chatActive:null,
+        chatUser:null,
         userInfo: JSON.parse(localStorage.getItem('user_info')),
         id:null,
     },
@@ -66,7 +67,7 @@ export default createStore({
             state.cities = data
         },
         activeChat(state, data) {
-            console.log(data);
+            state.chatActive = data 
         }   
     },
     actions: {

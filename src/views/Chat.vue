@@ -3,7 +3,7 @@
         <div class="chat-wrapper another"></div>
         <div class="container">
             <div class="chat-wrapper">
-                <div class="chat-left" :class="{ active: isActive }">
+                <div style="display: none;" class="chat-left" :class="{ active: isActive }">
                     <label class="chat-label">
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -40,20 +40,21 @@
                         </div>
                     </div>
                 </div>
-               
-                <div v-if="store.state.chatActive" class="chat-right" :class="{ active: !isActive }">
+
+                <div v-if="store.state.chatActive" class="chat-right" :class="{ active: isActive }">
                     <div class="chat-head">
                         <span @click="isActive = !isActive">Назад</span>
                         <h3 class="chat-title">{{ name }}</h3>
                         <div class="chat-last-online">был(а) в {{ online }}</div>
                     </div>
                     <div class="chat-content">
-                        <div v-for="item in messageList" :key="item.id" class="chat-item" :class="{my: item.userId == user.id}">
+                        <div v-for="item in messageList" :key="item.id" class="chat-item"
+                            :class="{ my: item.userId == user.id }">
                             {{ item.text }}
                             <div class="chat-item-time">
-                                {{item.time}}
+                                {{ item.time }}
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <label class="chat-label">
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,9 +70,9 @@
                             </defs>
                         </svg>
 
-                        <input class="chat-another" type="text" placeholder="Введите сообщение">
+                        <input class="chat-another" type="text" placeholder="Введите сообщение" v-model="ws">
 
-                        <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg @click="onsend" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_630_5857)">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M2.3877 4.34993L3.57143 11.1563H10.8752C11.4965 11.1563 12.0002 11.66 12.0002 12.2813C12.0002 12.9026 11.4965 13.4063 10.8752 13.4063H3.57143L2.3877 20.2127L20.8943 12.2813L2.3877 4.34993ZM1.4833 12.2813L0.0956953 4.30256C-0.0164816 3.65754 0.192231 2.99828 0.655175 2.53533C1.23685 1.95366 2.11407 1.78472 2.87018 2.10876L22.9737 10.7246C23.5964 10.9914 24.0002 11.6038 24.0002 12.2813C24.0002 12.9588 23.5964 13.5712 22.9737 13.8381L2.87018 22.4538C2.11407 22.778 1.23685 22.6089 0.655175 22.0274C0.192231 21.5643 -0.0164819 20.9051 0.0956953 20.2601L1.4833 12.2813Z"
@@ -95,34 +96,45 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useStore } from 'vuex';
 const currentTime = ref('');
-const time = ref("")
-const store  = useStore()
-console.log(store.state.chatActive);
-function updateCurrentTime() {
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  currentTime.value = `${hours}:${minutes}`;
-  time.value = currentTime.value
-}
-
-
-onMounted(() => {
-  updateCurrentTime();
-  setInterval(updateCurrentTime, 1000); 
-});
-
-
+const time = ref("");
+const store = useStore();
+const id = store.state.activeChat.id;
 const online = ref("")
 const name = ref("")
 const isActive = ref(true)
-const user = JSON.parse(localStorage.getItem("user_info")) 
+const user = JSON.parse(localStorage.getItem("user_info"))
+// const tokken = 
+
+function updateCurrentTime() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    currentTime.value = `${hours}:${minutes}`;
+    time.value = currentTime.value
+}
+
+const getActiveuser = () => {
+
+    setTimeout(() => {
+        console.log(store.state.chatActive);
+        const dateTimeString = store.state.chatActive.created_date;
+        const dateTime = new Date(dateTimeString);
+        const hours = dateTime.getHours();
+        const minutes = dateTime.getMinutes();
+        online.value = `${hours}:${minutes}`;
+        name.value = store.state.chatUser.first_name + ' ' + store.state.chatUser.last_name 
+    }, 1000);
+}
+
+
+
+
 
 const timeString = time.value;
-const formattedTime = formatTime(timeString); 
+const formattedTime = formatTime(timeString);
 function formatTime(timeString) {
     const [time, meridiem] = timeString.split(' ');
     const [hours, minutes] = time.split(':');
@@ -135,8 +147,43 @@ function formatTime(timeString) {
     return `${formattedHours.toString().padStart(2, '0')}:${minutes} ${meridiem}`;
 }
 
+const ws = ref(''); 
+ 
+const connectWebSocket = () => {
+    console.log(id);
+// ws.value = new WebSocket('ws://89.208.106.189/ws/socket-server/chat/'  , JSON.parse(localStorage.getItem("access_token")));
+
+// ws.value.onopen = () => {
+//     console.log('Соединение WebSocket установлено');
+//   };
+
+//   ws.value.onmessage = (event) => {
+//     console.log('Получено сообщение:', event.data);
+//   };
+
+//   ws.value.onclose = () => {
+//     console.log('Соединение WebSocket закрыто');
+//   };
+
+//   ws.value.onerror = (error) => {
+//     console.error('Ошибка WebSocket:', error);
+//   };
+};
+
+// onBeforeUnmount(() => {
+//   if (ws.value) {
+//     ws.value.close();
+//   }
+// });
 
 
+
+onMounted(() => {
+    connectWebSocket(); 
+    // updateCurrentTime();
+    // setInterval(updateCurrentTime, 1000);
+    getActiveuser() 
+});
 
 
 const messageList = ref([
