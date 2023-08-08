@@ -10,9 +10,9 @@ import { useRoute, useRouter } from 'vue-router';
 const router = useRouter()
 const route = useRoute()
 
-if (route.path === '/' || JSON.parse(localStorage.getItem("user_info"))) {
-  router.push('/another-cabinet/3');
-}
+// if (route.path === '/' || JSON.parse(localStorage.getItem("user_info"))) {
+//   router.push('/another-cabinet/3');
+// }
 </script>
 
 <style lang="scss">

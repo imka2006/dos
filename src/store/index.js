@@ -67,7 +67,9 @@ export default createStore({
             state.cities = data
         },
         activeChat(state, data) {
-            state.chatActive = data 
+            state.chatActive = data;
+            localStorage.setItem("chatId", JSON.stringify(data.id))
+            localStorage.setItem("chatInfo", JSON.stringify(data))
         }   
     },
     actions: {

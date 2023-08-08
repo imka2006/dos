@@ -5,7 +5,7 @@
       <div class="df-aic-jcsb">
         <h2 class="title">Персона</h2>
         <div class="home-done"> 
-          <router-link to="/chat"><BtnMess class="home-btn" text="Отправить сообщение" @click="handleChat" /></router-link>
+          <router-link :to="'/chat/' + router.params.id"><BtnMess class="home-btn" text="Отправить сообщение" @click="handleChat" /></router-link>
         </div>
       </div>
       <div class="wrapper">
@@ -156,7 +156,7 @@ const handleChat = async () => {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem('access_token'))}`,
       },
     });
-    const data = await res.json(); 
+    const data = await res.json();
     store.commit('activeChat', data)
      
 } 
